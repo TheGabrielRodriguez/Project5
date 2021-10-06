@@ -20,8 +20,8 @@ public final class Functions
 
     public static final int PROPERTY_KEY = 0;
 
-    public static final List<String> PATH_KEYS = new ArrayList<>(Arrays.asList("bridge", "dirt", "dirt_horiz", "dirt_vert_left", "dirt_vert_right",
-            "dirt_bot_left_corner", "dirt_bot_right_up", "dirt_vert_left_bot"));
+    //public static final List<String> PATH_KEYS = new ArrayList<>(Arrays.asList("bridge", "dirt", "dirt_horiz", "dirt_vert_left", "dirt_vert_right",
+            //"dirt_bot_left_corner", "dirt_bot_right_up", "dirt_vert_left_bot"));
 
     public static final String SAPLING_KEY = "sapling";
     public static final int SAPLING_HEALTH_LIMIT = 5;
@@ -88,21 +88,23 @@ public final class Functions
 
 
 
-    public static PImage getCurrentImage(Object entity) {
-        if (entity instanceof Background) {
+    public static PImage getCurrentImage(Object entity) { // get rid of static and get rid of parameter
+        // put it into both entity and background
+        if (entity instanceof Background) { // get rid of checking if background
             return ((Background)entity).images.get(
-                    ((Background)entity).imageIndex);
+                    ((Background)entity).imageIndex);  // return images.get(this.imageIndex);
         }
-        else if (entity instanceof Entity) {
-            return ((Entity)entity).images.get(((Entity)entity).imageIndex);
+        else if (entity instanceof Entity) { //get rid of
+            return ((Entity)entity).images.get(((Entity)entity).imageIndex);  // get rid of
         }
-        else {
-            throw new UnsupportedOperationException(
-                    String.format("getCurrentImage not supported for %s",
-                                  entity));
+        else { //get rid of
+            throw new UnsupportedOperationException( //get rid of
+                    String.format("getCurrentImage not supported for %s", //get rid of
+                                  entity)); //get rid of
         }
-    }
-
+    }  // anything that is just reading in from the file or parsing in from a file, leave in functions, not reading in data from classes just from text
+        // create methods: keep it, decide whether to leave it in function or move it (leave it in functions)
+        //make all instance variables minus (private) on UML
     public static int getAnimationPeriod(Entity entity) {
         switch (entity.kind) {
             case DUDE_FULL:
@@ -123,7 +125,7 @@ public final class Functions
         entity.imageIndex = (entity.imageIndex + 1) % entity.images.size();
     }
 
-    public static void executeAction(Action action, EventScheduler scheduler) {
+    public static void executeAction(Action action, EventScheduler scheduler) { // action class (swtich)
         switch (action.kind) {
             case ACTIVITY:
                 executeActivityAction(action, scheduler);
@@ -149,10 +151,10 @@ public final class Functions
         }
     }
 
-    public static void executeActivityAction(
+    public static void executeActivityAction( // put into action not in Entity
             Action action, EventScheduler scheduler)
     {
-        switch (action.entity.kind) {
+        switch (action.entity.kind) {  // switch through action data so put into action
             case SAPLING:
                 executeSaplingActivity(action.entity, action.world,
                                          action.imageStore, scheduler);
@@ -215,9 +217,10 @@ public final class Functions
         }
     }
 
-    public static void executeFairyActivity(
-            Entity entity,
-            WorldModel world,
+    public static void executeFairyActivity(  //Entity  //Execute* are all Entity, make non static get rid of parameter Entity as well
+            Entity entity,  // look at which one we are dotting the most, using the objects (classes) data
+            WorldModel world,  // has to be one of these 4 parameters
+                                              // find whose data we are using
             ImageStore imageStore,
             EventScheduler scheduler)
     {
@@ -283,13 +286,13 @@ public final class Functions
     }
 
 
-    public static void scheduleActions(
+    public static void scheduleActions( //entity bc we have a switch function that calls entities data
             Entity entity,
             EventScheduler scheduler,
             WorldModel world,
             ImageStore imageStore)
     {
-        switch (entity.kind) {
+        switch (entity.kind) {// if switch then focus on that classes data
             case DUDE_FULL:
                 scheduleEvent(scheduler, entity,
                         createActivityAction(entity, world, imageStore),
@@ -345,7 +348,7 @@ public final class Functions
         }
     }
 
-    public static boolean transformNotFull(
+    public static boolean transformNotFull( // entity
             Entity entity,
             WorldModel world,
             EventScheduler scheduler,
@@ -370,8 +373,9 @@ public final class Functions
         return false;
     }
 
-    public static void transformFull(
-            Entity entity,
+    public static void transformFull( // use entity data a lot, gets dotted into a lot
+            Entity entity,  //make all instance variables private, purposefully leave things in function if they belong
+                                      // move function, make non static, get rid of parameter, make a getter
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore)
@@ -549,7 +553,7 @@ public final class Functions
         }
     }
 
-    public static Point nextPositionFairy(
+    public static Point nextPositionFairy( //entity bc moving entity data a lot, using specific fairies data a lot so entity and not worldmodel
             Entity entity, WorldModel world, Point destPos)
     {
         int horiz = Integer.signum(destPos.x - entity.position.x);
@@ -567,7 +571,7 @@ public final class Functions
         return newPos;
     }
 
-    public static Point nextPositionDude(
+    public static Point nextPositionDude( //entity
             Entity entity, WorldModel world, Point destPos)
     {
         int horiz = Integer.signum(destPos.x - entity.position.x);
@@ -721,7 +725,7 @@ public final class Functions
         img.updatePixels();
     }
 
-    public static void shift(Viewport viewport, int col, int row) {
+    public static void shift(Viewport viewport, int col, int row) { //viewport
         viewport.col = col;
         viewport.row = row;
     }
@@ -905,7 +909,7 @@ public final class Functions
         addEntity(world, entity);
     }
 
-    public static boolean withinBounds(WorldModel world, Point pos) {
+    public static boolean withinBounds(WorldModel world, Point pos) {  // worldmodel
         return pos.y >= 0 && pos.y < world.numRows && pos.x >= 0
                 && pos.x < world.numCols;
     }
@@ -964,7 +968,8 @@ public final class Functions
        Assumes that there is no entity currently occupying the
        intended destination cell.
     */
-    public static void addEntity(WorldModel world, Entity entity) {
+    public static void addEntity(WorldModel world, Entity entity) { //worldmodel holds grid of world and where everything is located
+        // entity is a single dude, so put into worldmodel bc that is where we add and remove things
         if (withinBounds(world, entity.position)) {
             setOccupancyCell(world, entity.position, entity);
             world.entities.add(entity);
@@ -1057,7 +1062,7 @@ public final class Functions
         return Math.min(high, Math.max(value, low));
     }
 
-    public static void shiftView(WorldView view, int colDelta, int rowDelta) {
+    public static void shiftView(WorldView view, int colDelta, int rowDelta) { //worldView, using worldviews data a lot
         int newCol = clamp(view.viewport.col + colDelta, 0,
                            view.world.numCols - view.viewport.numCols);
         int newRow = clamp(view.viewport.row + rowDelta, 0,

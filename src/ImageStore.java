@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
 
+import processing.core.PApplet;
 import processing.core.PImage;
 
 public final class ImageStore
@@ -15,4 +16,6 @@ public final class ImageStore
         defaultImages = new LinkedList<>();
         defaultImages.add(defaultImage);
     }
+
+
 }
