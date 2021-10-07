@@ -47,9 +47,9 @@ public final class Action
         }
     }
 
-    public static void executeActivityAction(EventScheduler scheduler)
+    public void executeActivityAction(EventScheduler scheduler)
     {
-        switch (action.entity.kind) {
+        switch (this.entity.kind) {
             case SAPLING:
                 entity.executeSaplingActivity(this.world,
                         this.imageStore, scheduler);

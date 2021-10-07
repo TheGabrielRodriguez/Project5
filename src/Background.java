@@ -15,4 +15,11 @@ public final class Background
         this.id = id;
         this.images = images;
     }
+
+    public  PImage getCurrentImage() { // get rid of static and get rid of parameter
+        // put it into both entity and background
+        return images.get(this.imageIndex);
+
+    }
+
 }

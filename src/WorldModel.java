@@ -1,3 +1,5 @@
+import processing.core.PImage;
+
 import java.util.*;
 
 /**
@@ -119,12 +121,37 @@ public final class WorldModel {
         return this.background[pos.y][pos.x];
     }
 
+
+
+    public Optional<PImage> getBackgroundImage(Point pos)
+    {
+        if (this.withinBounds(pos)) {
+            return Optional.of(this.getBackgroundCell(pos).getCurrentImage());  //create instance of entity or background in order to access getCurrentImage?
+        }
+        else {
+            return Optional.empty();
+        }
+    }
+
     public boolean isOccupied(Point pos) {
         return this.withinBounds(pos) && getOccupancyCell(pos) != null;
     }
 
+
+
     public void setOccupancyCell(Point pos, Entity entity) {
         this.occupancy[pos.y][pos.x] = entity;
+    }
+
+
+
+    public Optional<Entity> getOccupant(Point pos) {
+        if (this.isOccupied(pos)) {
+            return Optional.of(this.getOccupancyCell(pos));
+        }
+        else {
+            return Optional.empty();
+        }
     }
 
     public void tryAddEntity(Entity entity) {

@@ -93,9 +93,6 @@ public final class Functions
                         - min);
     }
 
-
-
-
     /*
       Called with color for which alpha should be set and alpha value.
       setAlpha(img, color(255, 255, 255), 0));
@@ -115,99 +112,14 @@ public final class Functions
 
 
 
-
-
-
-
     /*
        Assumes that there is no entity currently occupying the
        intended destination cell.
     */
 
 
-
-
-
-
-    public static Optional<PImage> getBackgroundImage(
-            WorldModel world, Point pos)
-    {
-        if (WorldModel.withinBounds(world, pos)) {
-            return Optional.of(Entity.getCurrentImage(getBackgroundCell(world, pos)));
-        }
-        else {
-            return Optional.empty();
-        }
-    }
-
-    public static void setBackground(
-            WorldModel world, Point pos, Background background)
-    {
-        if (WorldModel.withinBounds(world, pos)) {
-            setBackgroundCell(world, pos, background);
-        }
-    }
-
-    public static Optional<Entity> getOccupant(WorldModel world, Point pos) {
-        if (isOccupied(world, pos)) {
-            return Optional.of(getOccupancyCell(world, pos));
-        }
-        else {
-            return Optional.empty();
-        }
-    }
-
-
-
-
-
-
-
-
-
     public static int clamp(int value, int low, int high) {
         return Math.min(high, Math.max(value, low));
-    }
-
-    public static void shiftView(WorldView view, int colDelta, int rowDelta) { //worldView, using worldviews data a lot
-        int newCol = clamp(view.viewport.col + colDelta, 0,
-                           view.world.numCols - view.viewport.numCols);
-        int newRow = clamp(view.viewport.row + rowDelta, 0,
-                           view.world.numRows - view.viewport.numRows);
-
-        shift(view.viewport, newCol, newRow);
-    }
-
-    public static void drawBackground(WorldView view) {  //Worldview, uses a lot of data from worldview objects
-        for (int row = 0; row < view.viewport.numRows; row++) {
-            for (int col = 0; col < view.viewport.numCols; col++) {
-                Point worldPoint = viewportToWorld(view.viewport, col, row);
-                Optional<PImage> image =
-                        getBackgroundImage(view.world, worldPoint);
-                if (image.isPresent()) {
-                    view.screen.image(image.get(), col * view.tileWidth,
-                                      row * view.tileHeight);
-                }
-            }
-        }
-    }
-
-    public static void drawEntities(WorldView view) {  // worldview, using much more of worldview data than entities object(Singular isntance)
-        for (Entity entity : view.world.entities) {
-            Point pos = entity.position;
-
-            if (contains(view.viewport, pos)) {
-                Point viewPoint = worldToViewport(view.viewport, pos.x, pos.y);
-                view.screen.image(getCurrentImage(entity),
-                                  viewPoint.x * view.tileWidth,
-                                  viewPoint.y * view.tileHeight);
-            }
-        }
-    }
-
-    public static void drawViewport(WorldView view) { //worldview maybe? uses worldview data but might be background or something
-        drawBackground(view);
-        drawEntities(view);
     }
 
 

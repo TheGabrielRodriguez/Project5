@@ -76,7 +76,7 @@ public final class VirtualWorld extends PApplet
             nextTime = time + TIMER_ACTION_PERIOD;
         }
 
-        Functions.drawViewport(view);
+        view.drawViewport();
     }
 
     // Just for debugging and for P5
@@ -84,7 +84,7 @@ public final class VirtualWorld extends PApplet
         Point pressed = mouseToPoint(mouseX, mouseY);
         System.out.println("CLICK! " + pressed.x + ", " + pressed.y);
 
-        Optional<Entity> entityOptional = Functions.getOccupant(world, pressed);
+        Optional<Entity> entityOptional = world.getOccupant(pressed);
         if (entityOptional.isPresent())
         {
             Entity entity = entityOptional.get();
@@ -95,7 +95,7 @@ public final class VirtualWorld extends PApplet
 
     private Point mouseToPoint(int x, int y)
     {
-        return Functions.viewportToWorld(view.viewport, mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
+        return view.viewport.viewportToWorld(mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
     }
     public void keyPressed() {
         if (key == CODED) {
@@ -116,7 +116,7 @@ public final class VirtualWorld extends PApplet
                     dx = 1;
                     break;
             }
-            Functions.shiftView(view, dx, dy);
+            view.shiftView(dx, dy);
         }
     }
 
