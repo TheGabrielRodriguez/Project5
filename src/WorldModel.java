@@ -1,19 +1,78 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Represents the 2D World in which this simulation is running.
  * Keeps track of the size of the world, the background image for each
  * location in the world, and the entities that populate the world.
  */
-public final class WorldModel
-{
+public final class WorldModel {
     public int numRows;
     public int numCols;
     public Background background[][];
     public Entity occupancy[][];
     public Set<Entity> entities;
+
+
+    public static final int PROPERTY_KEY = 0;
+
+    public static final String SAPLING_KEY = "sapling";
+    public static final int SAPLING_HEALTH_LIMIT = 5;
+    public static final int SAPLING_ACTION_ANIMATION_PERIOD = 1000; // have to be in sync since grows and gains health at same time
+    public static final int SAPLING_NUM_PROPERTIES = 4;
+    public static final int SAPLING_ID = 1;
+    public static final int SAPLING_COL = 2;
+    public static final int SAPLING_ROW = 3;
+    public static final int SAPLING_HEALTH = 4;
+
+    public static final String BGND_KEY = "background";
+    public static final int BGND_NUM_PROPERTIES = 4;
+    public static final int BGND_ID = 1;
+    public static final int BGND_COL = 2;
+    public static final int BGND_ROW = 3;
+
+    public static final String OBSTACLE_KEY = "obstacle";
+    public static final int OBSTACLE_NUM_PROPERTIES = 5;
+    public static final int OBSTACLE_ID = 1;
+    public static final int OBSTACLE_COL = 2;
+    public static final int OBSTACLE_ROW = 3;
+    public static final int OBSTACLE_ANIMATION_PERIOD = 4;
+
+    public static final String DUDE_KEY = "dude";
+    public static final int DUDE_NUM_PROPERTIES = 7;
+    public static final int DUDE_ID = 1;
+    public static final int DUDE_COL = 2;
+    public static final int DUDE_ROW = 3;
+    public static final int DUDE_LIMIT = 4;
+    public static final int DUDE_ACTION_PERIOD = 5;
+    public static final int DUDE_ANIMATION_PERIOD = 6;
+
+    public static final String HOUSE_KEY = "house";
+    public static final int HOUSE_NUM_PROPERTIES = 4;
+    public static final int HOUSE_ID = 1;
+    public static final int HOUSE_COL = 2;
+    public static final int HOUSE_ROW = 3;
+
+    public static final String FAIRY_KEY = "fairy";
+    public static final int FAIRY_NUM_PROPERTIES = 6;
+    public static final int FAIRY_ID = 1;
+    public static final int FAIRY_COL = 2;
+    public static final int FAIRY_ROW = 3;
+    public static final int FAIRY_ANIMATION_PERIOD = 4;
+    public static final int FAIRY_ACTION_PERIOD = 5;
+
+
+
+    public static final String TREE_KEY = "tree";
+    public static final int TREE_NUM_PROPERTIES = 7;
+    public static final int TREE_ID = 1;
+    public static final int TREE_COL = 2;
+    public static final int TREE_ROW = 3;
+    public static final int TREE_ANIMATION_PERIOD = 4;
+    public static final int TREE_ACTION_PERIOD = 5;
+    public static final int TREE_HEALTH = 6;
+
+
+
 
     public WorldModel(int numRows, int numCols, Background defaultBackground) {
         this.numRows = numRows;
@@ -26,4 +85,248 @@ public final class WorldModel
             Arrays.fill(this.background[row], defaultBackground);
         }
     }
+
+    public boolean withinBounds(Point pos) {  // worldmodel
+        return pos.y >= 0 && pos.y < this.numRows && pos.x >= 0
+                && pos.x < this.numCols;
+    }
+
+    public Optional<Entity> findNearest(Point pos, List<EntityKind> kinds) {
+        List<Entity> ofType = new LinkedList<>();
+        for (EntityKind kind : kinds) {
+            for (Entity entity : this.entities) {
+                if (entity.kind == kind) {
+                    ofType.add(entity);
+                }
+            }
+        }
+
+        return Entity.nearestEntity(ofType, pos);
+    }
+
+
+    public void setBackgroundCell(Point pos, Background background) {
+        this.background[pos.y][pos.x] = background;
+    }
+
+    public void setBackground(Point pos, Background background) {
+        if (this.withinBounds(pos)) {
+            this.setBackgroundCell(pos, background);
+        }
+    }
+
+    public Background getBackgroundCell(Point pos) { //world
+        return this.background[pos.y][pos.x];
+    }
+
+    public boolean isOccupied(Point pos) {
+        return this.withinBounds(pos) && getOccupancyCell(pos) != null;
+    }
+
+    public void setOccupancyCell(Point pos, Entity entity) {
+        this.occupancy[pos.y][pos.x] = entity;
+    }
+
+    public void tryAddEntity(Entity entity) {
+        if (isOccupied(entity.position)) {
+            // arguably the wrong type of exception, but we are not
+            // defining our own exceptions yet
+            throw new IllegalArgumentException("position occupied");
+        }
+
+        addEntity(entity);
+    }
+
+    public void addEntity(Entity entity) { //worldmodel holds grid of world and where everything is located
+        // entity is a single dude, so put into worldmodel bc that is where we add and remove things
+        if (this.withinBounds(entity.position)) {
+            this.setOccupancyCell(entity.position, entity);
+            this.entities.add(entity);
+        }
+    }
+
+    public Entity getOccupancyCell(Point pos) { //world
+        return this.occupancy[pos.y][pos.x];
+    }
+
+    public void load(
+            Scanner in, ImageStore imageStore) {
+        int lineNumber = 0;
+        while (in.hasNextLine()) {
+            try {
+                if (!processLine(in.nextLine(), imageStore)) {
+                    System.err.println(String.format("invalid entry on line %d",
+                            lineNumber));
+                }
+            } catch (NumberFormatException e) {
+                System.err.println(
+                        String.format("invalid entry on line %d", lineNumber));
+            } catch (IllegalArgumentException e) {
+                System.err.println(
+                        String.format("issue on line %d: %s", lineNumber,
+                                e.getMessage()));
+            }
+            lineNumber++;
+        }
+    }
+
+    public boolean processLine(
+            String line, ImageStore imageStore) {
+        String[] properties = line.split("\\s");
+        if (properties.length > 0) {
+            switch (properties[PROPERTY_KEY]) {
+                case BGND_KEY:
+                    return parseBackground(properties, imageStore);
+                case DUDE_KEY:
+                    return parseDude(properties, imageStore);
+                case OBSTACLE_KEY:
+                    return parseObstacle(properties, imageStore);
+                case FAIRY_KEY:
+                    return parseFairy(properties, imageStore);
+                case HOUSE_KEY:
+                    return parseHouse(properties, imageStore);
+                case TREE_KEY:
+                    return parseTree(properties, imageStore);
+                case SAPLING_KEY:
+                    return parseSapling(properties, imageStore);
+            }
+        }
+
+        return false;
+    }
+
+    public boolean parseBackground(String[] properties, ImageStore imageStore) {
+        if (properties.length == BGND_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[BGND_COL]),
+                    Integer.parseInt(properties[BGND_ROW]));
+            String id = properties[BGND_ID];
+            this.setBackground(pt,
+                    new Background(id, imageStore.getImageList(id)));
+        }
+
+        return properties.length == BGND_NUM_PROPERTIES;
+    }
+
+    public boolean parseSapling(String[] properties, ImageStore imageStore) {
+        if (properties.length == SAPLING_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[SAPLING_COL]),
+                    Integer.parseInt(properties[SAPLING_ROW]));
+            String id = properties[SAPLING_ID];
+            int health = Integer.parseInt(properties[SAPLING_HEALTH]);
+            Entity entity = new Entity(EntityKind.SAPLING, id, pt, imageStore.getImageList(SAPLING_KEY), 0, 0,
+                    SAPLING_ACTION_ANIMATION_PERIOD, SAPLING_ACTION_ANIMATION_PERIOD, health, SAPLING_HEALTH_LIMIT);
+            this.tryAddEntity(entity);
+        }
+
+        return properties.length == SAPLING_NUM_PROPERTIES;
+
+
+    }
+    public boolean parseDude(String[] properties, ImageStore imageStore)
+    {
+        if (properties.length == DUDE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[DUDE_COL]),
+                    Integer.parseInt(properties[DUDE_ROW]));
+            Entity entity = Functions.createDudeNotFull(properties[DUDE_ID],
+                    pt,
+                    Integer.parseInt(properties[DUDE_ACTION_PERIOD]),
+                    Integer.parseInt(properties[DUDE_ANIMATION_PERIOD]),
+                    Integer.parseInt(properties[DUDE_LIMIT]),
+                    imageStore.getImageList(DUDE_KEY));
+            this.tryAddEntity(entity);
+        }
+
+        return properties.length == DUDE_NUM_PROPERTIES;
+    }
+
+    public boolean parseFairy(String[] properties, ImageStore imageStore)
+    {
+        if (properties.length == FAIRY_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[FAIRY_COL]),
+                    Integer.parseInt(properties[FAIRY_ROW]));
+            Entity entity = Functions.createFairy(properties[FAIRY_ID],
+                    pt,
+                    Integer.parseInt(properties[FAIRY_ACTION_PERIOD]),
+                    Integer.parseInt(properties[FAIRY_ANIMATION_PERIOD]),
+                    imageStore.getImageList(FAIRY_KEY));
+            this.tryAddEntity(entity);
+        }
+
+        return properties.length == FAIRY_NUM_PROPERTIES;
+    }
+
+
+    public boolean parseTree(String[] properties, ImageStore imageStore)
+    {
+        if (properties.length == TREE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[TREE_COL]),
+                    Integer.parseInt(properties[TREE_ROW]));
+            Entity entity = Functions.createTree(properties[TREE_ID],
+                    pt,
+                    Integer.parseInt(properties[TREE_ACTION_PERIOD]),
+                    Integer.parseInt(properties[TREE_ANIMATION_PERIOD]),
+                    Integer.parseInt(properties[TREE_HEALTH]),
+                    imageStore.getImageList(TREE_KEY));
+            this.tryAddEntity(entity);
+        }
+
+        return properties.length == TREE_NUM_PROPERTIES;
+    }
+
+    public boolean parseObstacle(String[] properties, ImageStore imageStore)
+    {
+        if (properties.length == OBSTACLE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[OBSTACLE_COL]),
+                    Integer.parseInt(properties[OBSTACLE_ROW]));
+            Entity entity = Functions.createObstacle(properties[OBSTACLE_ID], pt,
+                    Integer.parseInt(properties[OBSTACLE_ANIMATION_PERIOD]),
+                    imageStore.getImageList(OBSTACLE_KEY));
+            tryAddEntity(entity);
+        }
+
+        return properties.length == OBSTACLE_NUM_PROPERTIES;
+    }
+
+    public boolean parseHouse(String[] properties, ImageStore imageStore)
+    {
+        if (properties.length == HOUSE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[HOUSE_COL]),
+                    Integer.parseInt(properties[HOUSE_ROW]));
+            Entity entity = Functions.createHouse(properties[HOUSE_ID], pt,
+                    imageStore.getImageList(HOUSE_KEY));
+            this.tryAddEntity(entity);
+        }
+
+        return properties.length == HOUSE_NUM_PROPERTIES;
+    }
+
+    public void removeEntityAt(Point pos) {  //World bc removing things from that
+        if (this.withinBounds(pos) && this.getOccupancyCell(pos) != null) {
+            Entity entity = this.getOccupancyCell(pos);
+
+            /* This moves the entity just outside of the grid for
+             * debugging purposes. */
+            entity.position = new Point(-1, -1);
+            this.entities.remove(entity);
+            this.setOccupancyCell(pos, null);
+        }
+    }
+
+    public void moveEntity(Entity entity, Point pos) {  //Entity
+        Point oldPos = entity.position;
+        if (this.withinBounds(pos) && !pos.equals(oldPos)) {
+            this.setOccupancyCell(oldPos, null);
+            removeEntityAt(pos);
+            setOccupancyCell(pos, entity);
+            entity.position = pos;
+        }
+    }
+
+
+    public void removeEntity(Entity entity) {//Entity?
+        this.removeEntityAt(entity.position);
+    }
+
+
+
 }
