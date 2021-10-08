@@ -10,7 +10,7 @@ public final class Entity
 {
     private final EntityKind kind;
     private final String id;
-    public Point position;
+    public Point position; //make a getter, then make a setter if it gets set
     private final List<PImage> images;
     private int imageIndex;
     private final int resourceLimit;
@@ -19,6 +19,9 @@ public final class Entity
     private final int animationPeriod;
     private int health;
     private final int healthLimit;
+
+
+
 
     private static final int TREE_ANIMATION_MAX = 600;
     private static final int TREE_ANIMATION_MIN = 50;
@@ -74,6 +77,8 @@ public final class Entity
 
 
 
+
+
     public void executeSaplingActivity(
             WorldModel world,
             ImageStore imageStore,
@@ -120,7 +125,7 @@ public final class Entity
                         imageStore.getImageList(SAPLING_KEY));
 
                 world.addEntity(sapling);
-                this.scheduleActions(scheduler, world, imageStore);
+                sapling.scheduleActions(scheduler, world, imageStore);
             }
         }
 
@@ -232,7 +237,7 @@ public final class Entity
 
 
         }
-    public boolean transformNotFull( // entity
+    private boolean transformNotFull( // entity
 
                                      WorldModel world,
                                      EventScheduler scheduler,
@@ -257,7 +262,7 @@ public final class Entity
         return false;
     }
 
-    public void transformFull( // use entity data a lot, gets dotted into a lot
+    private void transformFull( // use entity data a lot, gets dotted into a lot
                                        //make all instance variables private, purposefully leave things in function if they belong
                                       // move function, make non static, get rid of parameter, make a getter
                                       WorldModel world,
@@ -277,7 +282,7 @@ public final class Entity
         miner.scheduleActions(scheduler, world, imageStore);
     }
 
-    public Point nextPositionFairy( //entity bc moving entity data a lot, using specific fairies data a lot so entity and not worldmodel
+    private Point nextPositionFairy( //entity bc moving entity data a lot, using specific fairies data a lot so entity and not worldmodel
                                            WorldModel world, Point destPos)
     {
         int horiz = Integer.signum(destPos.x - this.position.x);
@@ -305,7 +310,7 @@ public final class Entity
         }
 
 
-    public boolean transformPlant(
+    private boolean transformPlant(
                                           WorldModel world,
                                           EventScheduler scheduler,
                                           ImageStore imageStore)
@@ -325,7 +330,7 @@ public final class Entity
         }
     }
 
-    public boolean transformTree(
+    private boolean transformTree(
 
             WorldModel world,
             EventScheduler scheduler,
@@ -348,7 +353,7 @@ public final class Entity
         return false;
     }
 
-    public boolean transformSapling(
+    private boolean transformSapling(
             Entity entity,
             WorldModel world,
             EventScheduler scheduler,
@@ -388,7 +393,7 @@ public final class Entity
         return false;
     }
 
-    public boolean moveToFairy(
+    private boolean moveToFairy(
             WorldModel world,
             Entity target,
             EventScheduler scheduler)
@@ -413,7 +418,7 @@ public final class Entity
         }
     }
 
-    public boolean moveToNotFull(
+    private boolean moveToNotFull(
             WorldModel world,
             Entity target,
             EventScheduler scheduler)
@@ -438,7 +443,7 @@ public final class Entity
         }
     }
 
-    public boolean moveToFull(
+    private boolean moveToFull(
             WorldModel world,
             Entity target,
             EventScheduler scheduler)
@@ -462,7 +467,7 @@ public final class Entity
     }
 
 
-    public Point nextPositionDude( //entity
+    private Point nextPositionDude( //entity
                                           WorldModel world, Point destPos)
     {
         int horiz = Integer.signum(destPos.x - this.position.x);

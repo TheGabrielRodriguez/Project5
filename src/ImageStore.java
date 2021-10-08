@@ -19,7 +19,7 @@ public final class ImageStore
         defaultImages.add(defaultImage);
     }
 
-    public static void processImageLine(
+    private static void processImageLine(
             Map<String, List<PImage>> images, String line, PApplet screen)
     {
         String[] attrs = line.split("\\s");
@@ -61,7 +61,7 @@ public final class ImageStore
         }
     }
 
-    public static List<PImage> getImages(
+    private static List<PImage> getImages(
             Map<String, List<PImage>> images, String key)
     {
         List<PImage> imgs = images.get(key);

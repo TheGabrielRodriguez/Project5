@@ -1,4 +1,4 @@
-public final class Viewport
+public final class Viewport  //camera or eye into the virtual world simulation, the piece you can actually see
 {
     private int row;
     private int col;

@@ -40,7 +40,7 @@ public final class WorldView
         this.viewport.shift(newCol, newRow);
     }
 
-    public void drawBackground() {  //Worldview, uses a lot of data from worldview objects
+    private void drawBackground() {  //Worldview, uses a lot of data from worldview objects
         for (int row = 0; row < this.viewport.getNumRows(); row++) {
             for (int col = 0; col < this.viewport.getNumCols(); col++) {
                 Point worldPoint = this.viewport.viewportToWorld(col, row);
@@ -54,7 +54,7 @@ public final class WorldView
         }
     }
 
-    public void drawEntities(){  // worldview, using much more of worldview data than entities object(Singular isntance)
+    private void drawEntities(){  // worldview, using much more of worldview data than entities object(Singular isntance)
         for (Entity entity : this.world.getEntities()) {
             Point pos = entity.getPosition();
 

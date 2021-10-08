@@ -29,6 +29,8 @@ public final class WorldModel {  // make init vars private and then make getters
         return TREE_KEY;
     }
 
+    //end of getters
+
 
 
     private static final int PROPERTY_KEY = 0;
@@ -106,7 +108,7 @@ public final class WorldModel {  // make init vars private and then make getters
         }
     }
 
-    public boolean withinBounds(Point pos) {  // worldmodel
+    private boolean withinBounds(Point pos) {  // worldmodel
         return pos.y >= 0 && pos.y < this.numRows && pos.x >= 0
                 && pos.x < this.numCols;
     }
@@ -125,17 +127,17 @@ public final class WorldModel {  // make init vars private and then make getters
     }
 
 
-    public void setBackgroundCell(Point pos, Background background) {
+    private void setBackgroundCell(Point pos, Background background) {
         this.background[pos.y][pos.x] = background;
     }
 
-    public void setBackground(Point pos, Background background) {
+    private void setBackground(Point pos, Background background) {
         if (this.withinBounds(pos)) {
             this.setBackgroundCell(pos, background);
         }
     }
 
-    public Background getBackgroundCell(Point pos) { //world
+    private Background getBackgroundCell(Point pos) { //world
         return this.background[pos.y][pos.x];
     }
 
@@ -157,7 +159,7 @@ public final class WorldModel {  // make init vars private and then make getters
 
 
 
-    public void setOccupancyCell(Point pos, Entity entity) {
+    private void setOccupancyCell(Point pos, Entity entity) {
         this.occupancy[pos.y][pos.x] = entity;
     }
 
@@ -172,7 +174,7 @@ public final class WorldModel {  // make init vars private and then make getters
         }
     }
 
-    public void tryAddEntity(Entity entity) {
+    private void tryAddEntity(Entity entity) {
         if (isOccupied(entity.getPosition())) {
             // arguably the wrong type of exception, but we are not
             // defining our own exceptions yet
@@ -215,7 +217,7 @@ public final class WorldModel {  // make init vars private and then make getters
         }
     }
 
-    public boolean processLine(
+    private boolean processLine(
             String line, ImageStore imageStore) {
         String[] properties = line.split("\\s");
         if (properties.length > 0) {
@@ -240,7 +242,7 @@ public final class WorldModel {  // make init vars private and then make getters
         return false;
     }
 
-    public boolean parseBackground(String[] properties, ImageStore imageStore) {
+    private boolean parseBackground(String[] properties, ImageStore imageStore) {
         if (properties.length == BGND_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[BGND_COL]),
                     Integer.parseInt(properties[BGND_ROW]));
@@ -252,7 +254,7 @@ public final class WorldModel {  // make init vars private and then make getters
         return properties.length == BGND_NUM_PROPERTIES;
     }
 
-    public boolean parseSapling(String[] properties, ImageStore imageStore) {
+    private boolean parseSapling(String[] properties, ImageStore imageStore) {
         if (properties.length == SAPLING_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[SAPLING_COL]),
                     Integer.parseInt(properties[SAPLING_ROW]));
@@ -267,7 +269,7 @@ public final class WorldModel {  // make init vars private and then make getters
 
 
     }
-    public boolean parseDude(String[] properties, ImageStore imageStore)
+    private boolean parseDude(String[] properties, ImageStore imageStore)
     {
         if (properties.length == DUDE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[DUDE_COL]),
@@ -284,7 +286,7 @@ public final class WorldModel {  // make init vars private and then make getters
         return properties.length == DUDE_NUM_PROPERTIES;
     }
 
-    public boolean parseFairy(String[] properties, ImageStore imageStore)
+    private boolean parseFairy(String[] properties, ImageStore imageStore)
     {
         if (properties.length == FAIRY_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[FAIRY_COL]),
@@ -301,7 +303,7 @@ public final class WorldModel {  // make init vars private and then make getters
     }
 
 
-    public boolean parseTree(String[] properties, ImageStore imageStore)
+    private boolean parseTree(String[] properties, ImageStore imageStore)
     {
         if (properties.length == TREE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[TREE_COL]),
@@ -318,7 +320,7 @@ public final class WorldModel {  // make init vars private and then make getters
         return properties.length == TREE_NUM_PROPERTIES;
     }
 
-    public boolean parseObstacle(String[] properties, ImageStore imageStore)
+    private boolean parseObstacle(String[] properties, ImageStore imageStore)
     {
         if (properties.length == OBSTACLE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[OBSTACLE_COL]),
@@ -332,7 +334,7 @@ public final class WorldModel {  // make init vars private and then make getters
         return properties.length == OBSTACLE_NUM_PROPERTIES;
     }
 
-    public boolean parseHouse(String[] properties, ImageStore imageStore)
+    private boolean parseHouse(String[] properties, ImageStore imageStore)
     {
         if (properties.length == HOUSE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[HOUSE_COL]),
@@ -345,7 +347,7 @@ public final class WorldModel {  // make init vars private and then make getters
         return properties.length == HOUSE_NUM_PROPERTIES;
     }
 
-    public void removeEntityAt(Point pos) {  //World bc removing things from that
+    private void removeEntityAt(Point pos) {  //World bc removing things from that
         if (this.withinBounds(pos) && this.getOccupancyCell(pos) != null) {
             Entity entity = this.getOccupancyCell(pos);
 

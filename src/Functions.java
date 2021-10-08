@@ -14,6 +14,24 @@ public final class Functions
 
     private static final int COLOR_MASK = 0xffffff;
 
+    /*
+    Questions for lab
+    1) Do we have to move all of the instance vars in Functions to a respective class, can we resuse them in different areas or do we have to make getters/setters
+    2) Point instance var, public or private
+    3) Make all methods that arent being used outside class private?
+    4) Keep creates and parse in functions?
+    5) Weird error when making publics --> private in Virtualworld class
+    6) Design.txt?
+    7)
+     */
+
+    /*
+    Answers:
+    1) Move and then make private, make getters/setters as appropriate
+    2)
+    Move parse back to Functions probably just to make it easier net net
+     */
+
 
 
     //public static final List<String> PATH_KEYS = new ArrayList<>(Arrays.asList("bridge", "dirt", "dirt_horiz", "dirt_vert_left", "dirt_vert_right",
