@@ -8,17 +8,17 @@ import processing.core.PImage;
  */
 public final class Entity
 {
-    public EntityKind kind;
-    public String id;
+    private EntityKind kind;
+    private String id;
     public Point position;
-    public List<PImage> images;
-    public int imageIndex;
-    public int resourceLimit;
-    public int resourceCount;
-    public int actionPeriod;
-    public int animationPeriod;
-    public int health;
-    public int healthLimit;
+    private List<PImage> images;
+    private int imageIndex;
+    private int resourceLimit;
+    private int resourceCount;
+    private int actionPeriod;
+    private int animationPeriod;
+    private int health;
+    private int healthLimit;
 
     public Entity(
             EntityKind kind,
@@ -44,6 +44,23 @@ public final class Entity
         this.health = health;
         this.healthLimit = healthLimit;
     }
+
+
+    //getters;
+    public EntityKind getKind(){
+        return kind;
+    }
+    public String getId(){
+        return id;
+    }
+    public Point getPosition(){
+        return position;
+    }
+    public int getHealth(){
+        return health;
+    }
+
+
 
 
 
@@ -494,6 +511,8 @@ public final class Entity
             return Optional.of(nearest);
         }
     }
+
+
 }
 
 

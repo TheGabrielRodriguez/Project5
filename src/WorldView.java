@@ -5,11 +5,16 @@ import java.util.Optional;
 
 public final class WorldView
 {
-    public PApplet screen;
-    public WorldModel world;
-    public int tileWidth;
-    public int tileHeight;
-    public Viewport viewport;
+    private final PApplet screen;
+    private final WorldModel world;
+    private final int tileWidth;
+    private final int tileHeight;
+    private final Viewport viewport;
+
+    //getter
+    public Viewport getViewport(){
+        return viewport;
+    }
 
     public WorldView(
             int numRows,
@@ -27,17 +32,17 @@ public final class WorldView
     }
 
     public void shiftView(int colDelta, int rowDelta) { //worldView, using worldviews data a lot
-        int newCol = Functions.clamp(this.viewport.col + colDelta, 0,
-                this.world.numCols - this.viewport.numCols);
-        int newRow = Functions.clamp(this.viewport.row + rowDelta, 0,
-                this.world.numRows - this.viewport.numRows);
+        int newCol = Functions.clamp(this.viewport.getCol() + colDelta, 0,
+                this.world.numCols - this.viewport.getNumCols());
+        int newRow = Functions.clamp(this.viewport.getRow() + rowDelta, 0,
+                this.world.numRows - this.viewport.getNumRows());
 
         this.viewport.shift(newCol, newRow);
     }
 
     public void drawBackground() {  //Worldview, uses a lot of data from worldview objects
-        for (int row = 0; row < this.viewport.numRows; row++) {
-            for (int col = 0; col < this.viewport.numCols; col++) {
+        for (int row = 0; row < this.viewport.getNumRows(); row++) {
+            for (int col = 0; col < this.viewport.getNumCols(); col++) {
                 Point worldPoint = this.viewport.viewportToWorld(col, row);
                 Optional<PImage> image =
                         this.world.getBackgroundImage(worldPoint);
@@ -51,7 +56,7 @@ public final class WorldView
 
     public void drawEntities(){  // worldview, using much more of worldview data than entities object(Singular isntance)
         for (Entity entity : this.world.entities) {
-            Point pos = entity.position;
+            Point pos = entity.getPosition();
 
             if (this.viewport.contains(pos)) {
                 Point viewPoint = this.viewport.worldToViewport(pos.x, pos.y);

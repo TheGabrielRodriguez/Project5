@@ -110,8 +110,6 @@ public final class Functions
         img.updatePixels();
     }
 
-
-
     /*
        Assumes that there is no entity currently occupying the
        intended destination cell.

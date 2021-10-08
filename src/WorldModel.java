@@ -7,7 +7,7 @@ import java.util.*;
  * Keeps track of the size of the world, the background image for each
  * location in the world, and the entities that populate the world.
  */
-public final class WorldModel {
+public final class WorldModel {  // make init vars private and then make getters/make correction to errors as they come up
     public int numRows;
     public int numCols;
     public Background background[][];
@@ -97,7 +97,7 @@ public final class WorldModel {
         List<Entity> ofType = new LinkedList<>();
         for (EntityKind kind : kinds) {
             for (Entity entity : this.entities) {
-                if (entity.kind == kind) {
+                if (entity.getKind() == kind) {
                     ofType.add(entity);
                 }
             }
@@ -155,7 +155,7 @@ public final class WorldModel {
     }
 
     public void tryAddEntity(Entity entity) {
-        if (isOccupied(entity.position)) {
+        if (isOccupied(entity.getPosition())) {
             // arguably the wrong type of exception, but we are not
             // defining our own exceptions yet
             throw new IllegalArgumentException("position occupied");
@@ -166,8 +166,8 @@ public final class WorldModel {
 
     public void addEntity(Entity entity) { //worldmodel holds grid of world and where everything is located
         // entity is a single dude, so put into worldmodel bc that is where we add and remove things
-        if (this.withinBounds(entity.position)) {
-            this.setOccupancyCell(entity.position, entity);
+        if (this.withinBounds(entity.getPosition())) {
+            this.setOccupancyCell(entity.getPosition(), entity);
             this.entities.add(entity);
         }
     }
@@ -340,7 +340,7 @@ public final class WorldModel {
     }
 
     public void moveEntity(Entity entity, Point pos) {  //Entity
-        Point oldPos = entity.position;
+        Point oldPos = entity.getPosition();
         if (this.withinBounds(pos) && !pos.equals(oldPos)) {
             this.setOccupancyCell(oldPos, null);
             removeEntityAt(pos);
@@ -351,7 +351,7 @@ public final class WorldModel {
 
 
     public void removeEntity(Entity entity) {//Entity?
-        this.removeEntityAt(entity.position);
+        this.removeEntityAt(entity.getPosition());
     }
 
 
