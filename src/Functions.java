@@ -28,7 +28,9 @@ public final class Functions
     /*
     Answers:
     1) Move and then make private, make getters/setters as appropriate
-    2)
+    2) Make Point private, move parse back to functions, change nearestentity to non static and fix all errors, put all instance vars in right place
+    look over functions and think, "can I move anything else?" fix and update UML and make sure everything is good. Then after being done and checking VW still loads and is
+    working do the .txt explaining stuff. Upload pdf of the .txt and pdf of the .io to github, then go play poker
     Move parse back to Functions probably just to make it easier net net
      */
 

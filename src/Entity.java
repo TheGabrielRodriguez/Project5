@@ -74,11 +74,6 @@ public final class Entity
     }
 
 
-
-
-
-
-
     public void executeSaplingActivity(
             WorldModel world,
             ImageStore imageStore,
