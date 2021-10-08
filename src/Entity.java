@@ -10,7 +10,7 @@ public final class Entity
 {
     private final EntityKind kind;
     private final String id;
-    public Point position; //make a getter, then make a setter if it gets set
+    private Point position; //make a getter, then make a setter if it gets set
     private final List<PImage> images;
     private int imageIndex;
     private final int resourceLimit;
@@ -20,9 +20,6 @@ public final class Entity
     private int health;
     private final int healthLimit;
 
-
-
-
     private static final int TREE_ANIMATION_MAX = 600;
     private static final int TREE_ANIMATION_MIN = 50;
     private static final int TREE_ACTION_MAX = 1400;
@@ -30,8 +27,9 @@ public final class Entity
     private static final int TREE_HEALTH_MAX = 3;
     private static final int TREE_HEALTH_MIN = 1;
 
-    private static final String SAPLING_KEY = "sapling";
+
     private static final String STUMP_KEY = "stump";
+
 
     public Entity(
             EntityKind kind,
@@ -71,6 +69,11 @@ public final class Entity
     }
     public int getHealth(){
         return health;
+    }
+
+    //setters;
+    public void setPosition(Point position){
+        this.position = position;
     }
 
 
@@ -117,7 +120,7 @@ public final class Entity
 
             if (this.moveToFairy(world, fairyTarget.get(), scheduler)) {
                 Entity sapling = Functions.createSapling("sapling_" + this.id, tgtPos,
-                        imageStore.getImageList(SAPLING_KEY));
+                        imageStore.getImageList(world.getSaplingKey()));
 
                 world.addEntity(sapling);
                 sapling.scheduleActions(scheduler, world, imageStore);
@@ -280,12 +283,12 @@ public final class Entity
     private Point nextPositionFairy( //entity bc moving entity data a lot, using specific fairies data a lot so entity and not worldmodel
                                            WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.x - this.position.x);
-        Point newPos = new Point(this.position.x + horiz, this.position.y);
+        int horiz = Integer.signum(destPos.getX() - this.position.getX());
+        Point newPos = new Point(this.position.getX() + horiz, this.position.getY());
 
         if (horiz == 0 || world.isOccupied(newPos)) {
-            int vert = Integer.signum(destPos.y - this.position.y);
-            newPos = new Point(this.position.x, this.position.y + vert);
+            int vert = Integer.signum(destPos.getY() - this.position.getY());
+            newPos = new Point(this.position.getX(), this.position.getY() + vert);
 
             if (vert == 0 || world.isOccupied(newPos)) {
                 newPos = this.position;
@@ -465,12 +468,12 @@ public final class Entity
     private Point nextPositionDude( //entity
                                           WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.x - this.position.x);
-        Point newPos = new Point(this.position.x + horiz, this.position.y);
+        int horiz = Integer.signum(destPos.getX() - this.position.getX());
+        Point newPos = new Point(this.position.getX() + horiz, this.position.getY());
 
         if (horiz == 0 || world.isOccupied(newPos) && world.getOccupancyCell(newPos).kind != EntityKind.STUMP) {
-            int vert = Integer.signum(destPos.y - this.position.y);
-            newPos = new Point(this.position.x, this.position.y + vert);
+            int vert = Integer.signum(destPos.getY() - this.position.getY());
+            newPos = new Point(this.position.getX(), this.position.getY() + vert);
 
             if (vert == 0 || world.isOccupied(newPos) &&  world.getOccupancyCell(newPos).kind != EntityKind.STUMP) {
                 newPos = this.position;

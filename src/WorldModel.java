@@ -28,6 +28,9 @@ public final class WorldModel {  // make init vars private and then make getters
     public String getTreeKey(){
         return TREE_KEY;
     }
+    public String getSaplingKey(){
+        return SAPLING_KEY;
+    }
 
     //end of getters
 
@@ -36,8 +39,9 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int PROPERTY_KEY = 0;
 
     private static final String SAPLING_KEY = "sapling";
+
     private static final int SAPLING_HEALTH_LIMIT = 5;
-    private static final int SAPLING_ACTION_ANIMATION_PERIOD = 1000; // have to be in sync since grows and gains health at same time
+    private static final int SAPLING_ACTION_ANIMATION_PERIOD = 1000;
     private static final int SAPLING_NUM_PROPERTIES = 4;
     private static final int SAPLING_ID = 1;
     private static final int SAPLING_COL = 2;
@@ -109,8 +113,8 @@ public final class WorldModel {  // make init vars private and then make getters
     }
 
     private boolean withinBounds(Point pos) {  // worldmodel
-        return pos.y >= 0 && pos.y < this.numRows && pos.x >= 0
-                && pos.x < this.numCols;
+        return pos.getY() >= 0 && pos.getY() < this.numRows && pos.getX() >= 0
+                && pos.getX() < this.numCols;
     }
 
     public Optional<Entity> findNearest(Point pos, List<EntityKind> kinds) {
@@ -128,7 +132,7 @@ public final class WorldModel {  // make init vars private and then make getters
 
 
     private void setBackgroundCell(Point pos, Background background) {
-        this.background[pos.y][pos.x] = background;
+        this.background[pos.getY()][pos.getX()] = background;
     }
 
     private void setBackground(Point pos, Background background) {
@@ -138,7 +142,7 @@ public final class WorldModel {  // make init vars private and then make getters
     }
 
     private Background getBackgroundCell(Point pos) { //world
-        return this.background[pos.y][pos.x];
+        return this.background[pos.getY()][pos.getX()];
     }
 
 
@@ -160,7 +164,7 @@ public final class WorldModel {  // make init vars private and then make getters
 
 
     private void setOccupancyCell(Point pos, Entity entity) {
-        this.occupancy[pos.y][pos.x] = entity;
+        this.occupancy[pos.getY()][pos.getX()] = entity;
     }
 
 
@@ -174,8 +178,8 @@ public final class WorldModel {  // make init vars private and then make getters
         }
     }
 
-    private void tryAddEntity(Entity entity) {
-        if (isOccupied(entity.getPosition())) {
+    public void tryAddEntity(Entity entity) {
+        if (this.isOccupied(entity.getPosition())) {
             // arguably the wrong type of exception, but we are not
             // defining our own exceptions yet
             throw new IllegalArgumentException("position occupied");
@@ -193,7 +197,7 @@ public final class WorldModel {  // make init vars private and then make getters
     }
 
     public Entity getOccupancyCell(Point pos) { //world
-        return this.occupancy[pos.y][pos.x];
+        return this.occupancy[pos.getY()][pos.getX()];
     }
 
     public void load(
@@ -223,19 +227,19 @@ public final class WorldModel {  // make init vars private and then make getters
         if (properties.length > 0) {
             switch (properties[PROPERTY_KEY]) {
                 case BGND_KEY:
-                    return parseBackground(properties, imageStore);
+                    return this.parseBackground(properties, imageStore);
                 case DUDE_KEY:
-                    return parseDude(properties, imageStore);
+                    return this.parseDude(properties, imageStore);
                 case OBSTACLE_KEY:
-                    return parseObstacle(properties, imageStore);
+                    return this.parseObstacle(properties, imageStore);
                 case FAIRY_KEY:
-                    return parseFairy(properties, imageStore);
+                    return this.parseFairy(properties, imageStore);
                 case HOUSE_KEY:
-                    return parseHouse(properties, imageStore);
+                    return this.parseHouse(properties, imageStore);
                 case TREE_KEY:
-                    return parseTree(properties, imageStore);
+                    return this.parseTree(properties, imageStore);
                 case SAPLING_KEY:
-                    return parseSapling(properties, imageStore);
+                    return this.parseSapling(properties, imageStore);
             }
         }
 
@@ -353,7 +357,7 @@ public final class WorldModel {  // make init vars private and then make getters
 
             /* This moves the entity just outside of the grid for
              * debugging purposes. */
-            entity.position = new Point(-1, -1);
+            entity.setPosition(new Point(-1, -1));
             this.entities.remove(entity);
             this.setOccupancyCell(pos, null);
         }
@@ -365,7 +369,7 @@ public final class WorldModel {  // make init vars private and then make getters
             this.setOccupancyCell(oldPos, null);
             removeEntityAt(pos);
             setOccupancyCell(pos, entity);
-            entity.position = pos;
+            entity.setPosition(pos);
         }
     }
 

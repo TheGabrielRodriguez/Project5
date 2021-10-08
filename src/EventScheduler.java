@@ -49,7 +49,7 @@ public final class EventScheduler
     private static void removePendingEvent(
             EventScheduler scheduler, Event event)
     {
-        List<Event> pending = scheduler.pendingEvents.get(event.entity);
+        List<Event> pending = scheduler.pendingEvents.get(event.getEntity());
 
         if (pending != null) {
             pending.remove(event);
@@ -58,12 +58,12 @@ public final class EventScheduler
 
     public void updateOnTime(long time) {
         while (!this.eventQueue.isEmpty()
-                && this.eventQueue.peek().time < time) {
+                && this.eventQueue.peek().getTime() < time) {
             Event next = this.eventQueue.poll();
 
             removePendingEvent(this, next);
 
-            next.action.executeAction(this);
+            next.getAction().executeAction(this);
         }
     }
 }

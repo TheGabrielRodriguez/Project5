@@ -4,9 +4,22 @@
  */
 public final class Event
 {
-    public Action action;
-    public long time;
-    public Entity entity;
+    private final Action action;
+    private final long time;
+    private final Entity entity;
+
+    //getters
+    public Action getAction(){
+        return action;
+    }
+    public long getTime(){
+        return time;
+    }
+    public Entity getEntity(){
+        return entity;
+    }
+
+    // end of getters
 
     public Event(Action action, long time, Entity entity) {
         this.action = action;

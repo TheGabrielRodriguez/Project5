@@ -15,33 +15,20 @@ public final class Functions
     private static final int COLOR_MASK = 0xffffff;
 
     /*
-    Questions for lab
-    1) Do we have to move all of the instance vars in Functions to a respective class, can we resuse them in different areas or do we have to make getters/setters
-    2) Point instance var, public or private
-    3) Make all methods that arent being used outside class private?
-    4) Keep creates and parse in functions?
-    5) Weird error when making publics --> private in Virtualworld class
-    6) Design.txt?
-    7)
-     */
-
-    /*
-    Answers:
-    1) Move and then make private, make getters/setters as appropriate
-    2) Make Point private, move parse back to functions, change nearestentity to non static and fix all errors, put all instance vars in right place
+    move parse back to functions, change nearestentity to non static and fix all errors, put all instance vars in right place
     look over functions and think, "can I move anything else?" fix and update UML and make sure everything is good. Then after being done and checking VW still loads and is
-    working do the .txt explaining stuff. Upload pdf of the .txt and pdf of the .io to github, then go play poker
-    Move parse back to Functions probably just to make it easier net net
+    working do the .txt explaining stuff. Upload pdf of the .txt and pdf of the .io to github
      */
 
 
 
-    //public static final List<String> PATH_KEYS = new ArrayList<>(Arrays.asList("bridge", "dirt", "dirt_horiz", "dirt_vert_left", "dirt_vert_right",
-            //"dirt_bot_left_corner", "dirt_bot_right_up", "dirt_vert_left_bot"));
+    private static final List<String> PATH_KEYS = new ArrayList<>(Arrays.asList("bridge", "dirt", "dirt_horiz", "dirt_vert_left", "dirt_vert_right",
+            "dirt_bot_left_corner", "dirt_bot_right_up", "dirt_vert_left_bot"));
 
 
     private static final int SAPLING_HEALTH_LIMIT = 5;
     private static final int SAPLING_ACTION_ANIMATION_PERIOD = 1000; // have to be in sync since grows and gains health at same time
+
 
 
     public static int getNumFromRange(int max, int min)
