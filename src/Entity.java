@@ -8,17 +8,27 @@ import processing.core.PImage;
  */
 public final class Entity
 {
-    private EntityKind kind;
-    private String id;
+    private final EntityKind kind;
+    private final String id;
     public Point position;
-    private List<PImage> images;
+    private final List<PImage> images;
     private int imageIndex;
-    private int resourceLimit;
+    private final int resourceLimit;
     private int resourceCount;
-    private int actionPeriod;
-    private int animationPeriod;
+    private final int actionPeriod;
+    private final int animationPeriod;
     private int health;
-    private int healthLimit;
+    private final int healthLimit;
+
+    private static final int TREE_ANIMATION_MAX = 600;
+    private static final int TREE_ANIMATION_MIN = 50;
+    private static final int TREE_ACTION_MAX = 1400;
+    private static final int TREE_ACTION_MIN = 1000;
+    private static final int TREE_HEALTH_MAX = 3;
+    private static final int TREE_HEALTH_MIN = 1;
+
+    private static final String SAPLING_KEY = "sapling";
+    private static final String STUMP_KEY = "stump";
 
     public Entity(
             EntityKind kind,
@@ -107,7 +117,7 @@ public final class Entity
 
             if (this.moveToFairy(world, fairyTarget.get(), scheduler)) {
                 Entity sapling = Functions.createSapling("sapling_" + this.id, tgtPos,
-                        imageStore.getImageList(Functions.SAPLING_KEY));
+                        imageStore.getImageList(SAPLING_KEY));
 
                 world.addEntity(sapling);
                 this.scheduleActions(scheduler, world, imageStore);
@@ -324,7 +334,7 @@ public final class Entity
         if (this.health <= 0) {
             Entity stump = Functions.createStump(this.id,
                     this.position,
-                    imageStore.getImageList(Functions.STUMP_KEY));
+                    imageStore.getImageList(STUMP_KEY));
 
             world.removeEntity(this);
             EventScheduler.unscheduleAllEvents(scheduler, this);
@@ -347,7 +357,7 @@ public final class Entity
         if (entity.health <= 0) {
             Entity stump = Functions.createStump(entity.id,
                     entity.position,
-                    imageStore.getImageList(Functions.STUMP_KEY));
+                    imageStore.getImageList(STUMP_KEY));
 
             world.removeEntity(entity);
             EventScheduler.unscheduleAllEvents(scheduler, entity);
@@ -361,10 +371,10 @@ public final class Entity
         {
             Entity tree = Functions.createTree("tree_" + entity.id,
                     entity.position,
-                    Functions.getNumFromRange(Functions.TREE_ACTION_MAX, Functions.TREE_ACTION_MIN),
-                    Functions.getNumFromRange(Functions.TREE_ANIMATION_MAX, Functions.TREE_ANIMATION_MIN),
-                    Functions.getNumFromRange(Functions.TREE_HEALTH_MAX, Functions.TREE_HEALTH_MIN),
-                    imageStore.getImageList(Functions.TREE_KEY));
+                    Functions.getNumFromRange(TREE_ACTION_MAX, TREE_ACTION_MIN),
+                    Functions.getNumFromRange(TREE_ANIMATION_MAX, TREE_ANIMATION_MIN),
+                    Functions.getNumFromRange(TREE_HEALTH_MAX, TREE_HEALTH_MIN),
+                    imageStore.getImageList(world.getTreeKey()));
 
             world.removeEntity(entity);
             EventScheduler.unscheduleAllEvents(scheduler, entity);

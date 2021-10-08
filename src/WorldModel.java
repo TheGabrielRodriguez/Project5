@@ -25,6 +25,10 @@ public final class WorldModel {  // make init vars private and then make getters
     public Set<Entity> getEntities(){
         return entities;
     }
+    public String getTreeKey(){
+        return TREE_KEY;
+    }
+
 
 
     private static final int PROPERTY_KEY = 0;
@@ -84,6 +88,8 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int TREE_ANIMATION_PERIOD = 4;
     private static final int TREE_ACTION_PERIOD = 5;
     private static final int TREE_HEALTH = 6;
+
+
 
 
 
