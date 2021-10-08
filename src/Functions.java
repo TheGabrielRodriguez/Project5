@@ -23,7 +23,8 @@ public final class Functions
     public static final String SAPLING_KEY = "sapling";
     public static final int SAPLING_HEALTH_LIMIT = 5;
     public static final int SAPLING_ACTION_ANIMATION_PERIOD = 1000; // have to be in sync since grows and gains health at same time
-    public static final int SAPLING_NUM_PROPERTIES = 4;
+
+    //public static final int SAPLING_NUM_PROPERTIES = 4;
     public static final int SAPLING_ID = 1;
     public static final int SAPLING_COL = 2;
     public static final int SAPLING_ROW = 3;
