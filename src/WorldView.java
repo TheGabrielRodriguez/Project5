@@ -33,9 +33,9 @@ public final class WorldView
 
     public void shiftView(int colDelta, int rowDelta) { //worldView, using worldviews data a lot
         int newCol = Functions.clamp(this.viewport.getCol() + colDelta, 0,
-                this.world.numCols - this.viewport.getNumCols());
+                this.world.getNumCols() - this.viewport.getNumCols());
         int newRow = Functions.clamp(this.viewport.getRow() + rowDelta, 0,
-                this.world.numRows - this.viewport.getNumRows());
+                this.world.getNumRows() - this.viewport.getNumRows());
 
         this.viewport.shift(newCol, newRow);
     }
@@ -55,7 +55,7 @@ public final class WorldView
     }
 
     public void drawEntities(){  // worldview, using much more of worldview data than entities object(Singular isntance)
-        for (Entity entity : this.world.entities) {
+        for (Entity entity : this.world.getEntities()) {
             Point pos = entity.getPosition();
 
             if (this.viewport.contains(pos)) {
