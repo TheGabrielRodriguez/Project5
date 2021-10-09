@@ -48,6 +48,8 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int SAPLING_ROW = 3;
     private static final int SAPLING_HEALTH = 4;
 
+
+
     private static final String BGND_KEY = "background";
     private static final int BGND_NUM_PROPERTIES = 4;
     private static final int BGND_ID = 1;

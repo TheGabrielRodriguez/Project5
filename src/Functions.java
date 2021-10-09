@@ -14,11 +14,6 @@ public final class Functions
 
     private static final int COLOR_MASK = 0xffffff;
 
-    /*
-    move parse back to functions, change nearestentity to non static and fix all errors, put all instance vars in right place
-    look over functions and think, "can I move anything else?" fix and update UML and make sure everything is good. Then after being done and checking VW still loads and is
-    working do the .txt explaining stuff. Upload pdf of the .txt and pdf of the .io to github
-     */
 
 
 

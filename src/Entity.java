@@ -503,7 +503,7 @@ public final class Entity
         this.imageIndex = (this.imageIndex + 1) % this.images.size();
     }
 
-    public static Optional<Entity> nearestEntity(List<Entity> entities, Point pos)
+    public static Optional<Entity> nearestEntity(List<Entity> entities,Point pos)
     {
         if (entities.isEmpty()) {
             return Optional.empty();
@@ -524,7 +524,6 @@ public final class Entity
             return Optional.of(nearest);
         }
     }
-
 
 }
 
