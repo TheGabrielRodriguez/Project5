@@ -15,10 +15,8 @@ public final class Functions
     private static final int COLOR_MASK = 0xffffff;
 
 
-
-
-    private static final List<String> PATH_KEYS = new ArrayList<>(Arrays.asList("bridge", "dirt", "dirt_horiz", "dirt_vert_left", "dirt_vert_right",
-            "dirt_bot_left_corner", "dirt_bot_right_up", "dirt_vert_left_bot"));
+    //private static final List<String> PATH_KEYS = new ArrayList<>(Arrays.asList("bridge", "dirt", "dirt_horiz", "dirt_vert_left", "dirt_vert_right",
+            //"dirt_bot_left_corner", "dirt_bot_right_up", "dirt_vert_left_bot"));
 
 
     private static final int SAPLING_HEALTH_LIMIT = 5;
