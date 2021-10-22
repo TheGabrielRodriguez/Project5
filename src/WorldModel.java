@@ -119,18 +119,18 @@ public final class WorldModel {  // make init vars private and then make getters
                 && pos.getX() < this.numCols;
     }
 
-    public Optional<Entity> findNearest(Point pos, List<EntityKind> kinds) {
-        List<Entity> ofType = new LinkedList<>();
-        for (EntityKind kind : kinds) {
-            for (Entity entity : this.entities) {
-                if (entity.getKind() == kind) {
-                    ofType.add(entity);
-                }
-            }
-        }
-
-        return Entity.nearestEntity(ofType, pos);
-    }
+//    public Optional<Entity> findNearest(Point pos, List<EntityKind> kinds) {
+//        List<Entity> ofType = new LinkedList<>();
+//        for (EntityKind kind : kinds) {
+//            for (Entity entity : this.entities) {
+//                if (entity.getKind() == kind) {
+//                    ofType.add(entity);
+//                }
+//            }
+//        }
+//
+//        return Entity.nearestEntity(ofType, pos);
+//    }
 
 
     private void setBackgroundCell(Point pos, Background background) {
@@ -266,7 +266,7 @@ public final class WorldModel {  // make init vars private and then make getters
                     Integer.parseInt(properties[SAPLING_ROW]));
             String id = properties[SAPLING_ID];
             int health = Integer.parseInt(properties[SAPLING_HEALTH]);
-            Entity entity = new Entity(EntityKind.SAPLING, id, pt, imageStore.getImageList(SAPLING_KEY), 0, 0,
+            Entity entity = new Sapling(id, pt, imageStore.getImageList(SAPLING_KEY),
                     SAPLING_ACTION_ANIMATION_PERIOD, SAPLING_ACTION_ANIMATION_PERIOD, health, SAPLING_HEALTH_LIMIT);
             this.tryAddEntity(entity);
         }

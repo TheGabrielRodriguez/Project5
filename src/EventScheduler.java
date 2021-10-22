@@ -34,14 +34,13 @@ public final class EventScheduler
         this.pendingEvents.put(entity, pending);
     }
 
-    public static void unscheduleAllEvents(
-            EventScheduler scheduler, Entity entity)
+    public void unscheduleAllEvents(Entity entity)
     {
-        List<Event> pending = scheduler.pendingEvents.remove(entity);
+        List<Event> pending = this.pendingEvents.remove(entity);
 
         if (pending != null) {
             for (Event event : pending) {
-                scheduler.eventQueue.remove(event);
+                this.eventQueue.remove(event);
             }
         }
     }

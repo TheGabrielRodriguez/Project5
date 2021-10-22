@@ -61,28 +61,26 @@ public final class Functions
 
     // create methods: keep it, decide whether to leave it in function or move it (leave it in functions)
     public static Action createAnimationAction(Entity entity, int repeatCount) { // Action
-        return new Action(ActionKind.ANIMATION, entity, null, null,
-                          repeatCount);
+        return new Animation(entity, repeatCount);
     }
 
     public static Action createActivityAction(  //
             Entity entity, WorldModel world, ImageStore imageStore)
     {
-        return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
+        return new Activity(entity, world, imageStore);
     }
 
     public static Entity createHouse(
             String id, Point position, List<PImage> images)
     {
-        return new Entity(EntityKind.HOUSE, id, position, images, 0, 0, 0,
-                          0, 0, 0);
+        return new House(id, position, images);
     }
 
     public static Entity createObstacle(
             String id, Point position, int animationPeriod, List<PImage> images)
     {
-        return new Entity(EntityKind.OBSTACLE, id, position, images, 0, 0, 0,
-                          animationPeriod, 0, 0);
+        return new Obstacle(id, position, images,
+                          animationPeriod);
     }
 
     public static Entity createTree(
@@ -93,8 +91,8 @@ public final class Functions
             int health,
             List<PImage> images)
     {
-        return new Entity(EntityKind.TREE, id, position, images, 0, 0,
-                actionPeriod, animationPeriod, health, 0);
+        return new Tree(id, position, images,
+                actionPeriod, animationPeriod, health);
     }
 
     public static Entity createStump(
@@ -102,8 +100,7 @@ public final class Functions
             Point position,
             List<PImage> images)
     {
-        return new Entity(EntityKind.STUMP, id, position, images, 0, 0,
-                0, 0, 0, 0);
+        return new Stump(id, position, images);
     }
 
     // health starts at 0 and builds up until ready to convert to Tree
@@ -112,7 +109,7 @@ public final class Functions
             Point position,
             List<PImage> images)
     {
-        return new Entity(EntityKind.SAPLING, id, position, images, 0, 0,
+        return new Sapling(id, position, images,
                 SAPLING_ACTION_ANIMATION_PERIOD, SAPLING_ACTION_ANIMATION_PERIOD, 0, SAPLING_HEALTH_LIMIT);
     }
 
@@ -123,8 +120,8 @@ public final class Functions
             int animationPeriod,
             List<PImage> images)
     {
-        return new Entity(EntityKind.FAIRY, id, position, images, 0, 0,
-                actionPeriod, animationPeriod, 0, 0);
+        return new Fairy(id, position, images,
+                actionPeriod, animationPeriod);
     }
 
     // need resource count, though it always starts at 0
@@ -136,8 +133,8 @@ public final class Functions
             int resourceLimit,
             List<PImage> images)
     {
-        return new Entity(EntityKind.DUDE_NOT_FULL, id, position, images, resourceLimit, 0,
-                actionPeriod, animationPeriod, 0, 0);
+        return new DudeNotFull(id, position, images, resourceLimit, 0,
+                actionPeriod, animationPeriod);
     }
 
     // don't technically need resource count ... full
@@ -148,7 +145,7 @@ public final class Functions
             int animationPeriod,
             int resourceLimit,
             List<PImage> images) {
-        return new Entity(EntityKind.DUDE_FULL, id, position, images, resourceLimit, 0,
-                actionPeriod, animationPeriod, 0, 0);
+        return new DudeFull(id, position, images, resourceLimit,
+                actionPeriod, animationPeriod);
     }
 }

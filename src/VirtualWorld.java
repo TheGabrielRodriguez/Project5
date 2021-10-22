@@ -80,18 +80,18 @@ public final class VirtualWorld extends PApplet
     }
 
     // Just for debugging and for P5
-    public void mousePressed() {
-        Point pressed = mouseToPoint(mouseX, mouseY);
-        System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
-
-        Optional<Entity> entityOptional = world.getOccupant(pressed);
-        if (entityOptional.isPresent())
-        {
-            Entity entity = entityOptional.get();
-            System.out.println(entity.getId() + ": " + entity.getKind() + " : " + entity.getHealth());
-        }
-
-    }
+//    public void mousePressed() {
+//        Point pressed = mouseToPoint(mouseX, mouseY);
+//        System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
+//
+//        Optional<Entity> entityOptional = world.getOccupant(pressed);
+//        if (entityOptional.isPresent())
+//        {
+//            Entity entity = entityOptional.get();
+//            System.out.println(entity.getId() + ": " + entity.getKind() + " : " + entity.getHealth());
+//        }
+//
+//    }
 
     private Point mouseToPoint(int x, int y)
     {
@@ -163,7 +163,8 @@ public final class VirtualWorld extends PApplet
             WorldModel world, EventScheduler scheduler, ImageStore imageStore)
     {
         for (Entity entity : world.getEntities()) {
-            entity.scheduleActions(scheduler, world, imageStore);
+            if (entity instanceof RobustEntity)
+                ((RobustEntity)entity).scheduleActions(scheduler, world, imageStore);
         }
     }
 
