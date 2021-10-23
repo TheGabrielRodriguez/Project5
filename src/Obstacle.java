@@ -13,6 +13,7 @@ public final class Obstacle implements Entity, AnimateEntity
     private final List<PImage> images;
     private int imageIndex;
     private final int animationPeriod;
+    private final int actionPeriod;
 
 
 
@@ -21,7 +22,8 @@ public final class Obstacle implements Entity, AnimateEntity
             String id,
             Point position,
             List<PImage> images,
-            int animationPeriod
+            int animationPeriod,
+            int actionPeriod
             )
     {
         this.id = id;
@@ -29,6 +31,9 @@ public final class Obstacle implements Entity, AnimateEntity
         this.images = images;
         this.imageIndex = 0;
         this.animationPeriod = animationPeriod;
+        this.actionPeriod = actionPeriod;
+
+
 
     }
 
@@ -60,7 +65,20 @@ public final class Obstacle implements Entity, AnimateEntity
 
     public List<PImage> getImages(){ return images; }
     public int getImageIndex(){ return imageIndex; }
-}
+    public void scheduleActions( //entity bc we have a switch function that calls entities data
+
+                                 EventScheduler scheduler,
+                                 WorldModel world,
+                                 ImageStore imageStore)
+    {
+        scheduler.scheduleEvent(this,
+                Factory.createActivityAction(this, world, imageStore),
+                actionPeriod);
+        scheduler.scheduleEvent(this,
+                Factory.createAnimationAction(this, 0),
+                getAnimationPeriod());
+    }
+    }
 
 
 

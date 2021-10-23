@@ -15,6 +15,7 @@ public final class Stump implements Entity
 
 
 
+
     public Stump(
             String id,
             Point position,
@@ -25,6 +26,7 @@ public final class Stump implements Entity
         this.position = position;
         this.images = images;
         this.imageIndex = 0;
+
 
     }
 
@@ -54,6 +56,7 @@ public final class Stump implements Entity
 
     public List<PImage> getImages(){ return images; }
     public int getImageIndex(){ return imageIndex; }
+
 
 
 

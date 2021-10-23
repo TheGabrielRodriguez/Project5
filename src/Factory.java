@@ -28,7 +28,7 @@ public class Factory {
             String id, Point position, int animationPeriod, List<PImage> images)
     {
         return new Obstacle(id, position, images,
-                animationPeriod);
+                animationPeriod, 0);
     }
 
     public static Entity createTree(

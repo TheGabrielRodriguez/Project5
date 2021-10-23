@@ -159,14 +159,15 @@ public final class VirtualWorld extends PApplet
         }
     }
 
-    public void scheduleActions(
-            WorldModel world, EventScheduler scheduler, ImageStore imageStore)
+    public void scheduleActions(WorldModel world, EventScheduler scheduler, ImageStore imageStore)
     {
         for (Entity entity : world.getEntities()) {
-            if (entity instanceof RobustEntity)
+            if (entity instanceof RobustEntity && entity instanceof AnimateEntity){
                 ((RobustEntity)entity).scheduleActions(scheduler, world, imageStore);
+                }
+            }
         }
-    }
+
 
     public static void parseCommandLine(String[] args) {
         if (args.length > 1)
