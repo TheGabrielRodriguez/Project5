@@ -77,7 +77,7 @@ public final class Sapling implements Entity, Green, RobustEntity,AnimateEntity
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        this.health--;
+        this.health++;
         if (!transformPlant(world, scheduler, imageStore))  //Refer statically until move transformplant to entity then change based on where transformplant goes
         {
             scheduler.scheduleEvent(this,
