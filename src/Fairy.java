@@ -151,7 +151,6 @@ public final class Fairy implements Entity, Location, RobustEntity, AnimateEntit
 
     public int getAnimationPeriod() {
         return this.animationPeriod;
-
       }
 
 
@@ -169,7 +168,7 @@ public final class Fairy implements Entity, Location, RobustEntity, AnimateEntit
             int nearestDistance = nearest.getPosition().distanceSquared(pos);
 
             for (Entity entity : entities) {
-                int otherDistance = this.getPosition().distanceSquared(pos);
+                int otherDistance = entity.getPosition().distanceSquared(pos);
 
                 if (otherDistance < nearestDistance) {
                     nearest = entity;

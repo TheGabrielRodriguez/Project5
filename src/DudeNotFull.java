@@ -201,7 +201,7 @@ public final class DudeNotFull implements Entity, RobustEntity,AnimateEntity,Loc
             int nearestDistance = nearest.getPosition().distanceSquared(pos);
 
             for (Entity entity : entities) {
-                int otherDistance = this.getPosition().distanceSquared(pos);
+                int otherDistance = entity.getPosition().distanceSquared(pos);
 
                 if (otherDistance < nearestDistance) {
                     nearest = entity;
