@@ -170,7 +170,7 @@ public final class DudeNotFull implements Entity, RobustEntity,AnimateEntity,Loc
     {
         if (this.position.adjacent(target.getPosition())) {
             this.resourceCount += 1;
-            ((Green)target).deducteHealth(1);
+            ((Green)target).deductHealth(1);
 
             return true;
         }

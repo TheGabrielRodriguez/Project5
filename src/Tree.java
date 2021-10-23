@@ -17,15 +17,6 @@ public final class Tree implements Entity, Green, AnimateEntity, RobustEntity
     private final int animationPeriod;
     private int health;
 
-
-    private static final int TREE_ANIMATION_MAX = 600;
-    private static final int TREE_ANIMATION_MIN = 50;
-    private static final int TREE_ACTION_MAX = 1400;
-    private static final int TREE_ACTION_MIN = 1000;
-    private static final int TREE_HEALTH_MAX = 3;
-    private static final int TREE_HEALTH_MIN = 1;
-
-
     private static final String STUMP_KEY = "stump";
 
 
@@ -56,7 +47,7 @@ public final class Tree implements Entity, Green, AnimateEntity, RobustEntity
         return position;
     }
     public int getHealth(){ return health; }
-    public void deducteHealth(int given){ health = health - given; }
+    public void deductHealth(int given){ health = health - given; }
 
     //setters;
     public void setPosition(Point position){

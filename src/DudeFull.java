@@ -93,7 +93,7 @@ public final class DudeFull implements Entity, AnimateEntity,RobustEntity,Locati
         if (fullTarget.isPresent() &&
                 this.moveTo(world, fullTarget.get(), scheduler))
         {
-            this.transformFull(world, scheduler, imageStore);
+            transformFull(world, scheduler, imageStore);
         }
         else
         {

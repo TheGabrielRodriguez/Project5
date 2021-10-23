@@ -134,7 +134,7 @@ public final class Fairy implements Entity, Location, RobustEntity, AnimateEntit
             return true;
         }
         else {
-            Point nextPos = this.nextPosition(world, target.getPosition());
+            Point nextPos = nextPosition(world, target.getPosition());
 
             if (!this.position.equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
