@@ -57,13 +57,13 @@ public final class Fairy implements Entity, Location, RobustEntity, AnimateEntit
                                               EventScheduler scheduler)
     {
         Optional<Entity> fairyTarget =
-                this.findNearest(world, this.position, this);
+                this.findNearest(world, this.getPosition(), new ArrayList<>(Arrays.asList(Stump.class)));
 
         if (fairyTarget.isPresent()) {
             Point tgtPos = fairyTarget.get().getPosition();
 
             if (this.moveTo(world, fairyTarget.get(), scheduler)) {
-                Fairy sapling = (Fairy) Functions.createSapling("sapling_" + this.id, tgtPos,
+                Fairy sapling = (Fairy) Factory.createSapling("sapling_" + this.id, tgtPos,
                         imageStore.getImageList(world.getSaplingKey()));
 
                 world.addEntity(sapling);
@@ -72,7 +72,7 @@ public final class Fairy implements Entity, Location, RobustEntity, AnimateEntit
         }
 
         scheduler.scheduleEvent(this,
-                Functions.createActivityAction(this, world, imageStore),
+                Factory.createActivityAction(this, world, imageStore),
                 this.actionPeriod);
     }
 
@@ -85,10 +85,10 @@ public final class Fairy implements Entity, Location, RobustEntity, AnimateEntit
                                  ImageStore imageStore)
     {
         scheduler.scheduleEvent(this,
-                Functions.createActivityAction(this, world, imageStore),
+                Factory.createActivityAction(this, world, imageStore),
                 this.actionPeriod);
         scheduler.scheduleEvent(this,
-                Functions.createAnimationAction(this, 0),
+                Factory.createAnimationAction(this, 0),
                 getAnimationPeriod());
 
 
@@ -168,11 +168,11 @@ public final class Fairy implements Entity, Location, RobustEntity, AnimateEntit
             Entity nearest = entities.get(0);
             int nearestDistance = nearest.getPosition().distanceSquared(pos);
 
-            for (Entity other : entities) {
-                int otherDistance = other.getPosition().distanceSquared(pos);
+            for (Entity entity : entities) {
+                int otherDistance = this.getPosition().distanceSquared(pos);
 
                 if (otherDistance < nearestDistance) {
-                    nearest = other;
+                    nearest = entity;
                     nearestDistance = otherDistance;
                 }
             }
@@ -181,13 +181,13 @@ public final class Fairy implements Entity, Location, RobustEntity, AnimateEntit
         }
     }
 
-    public Optional<Entity> findNearest(
-            WorldModel world, Point pos, Entity entity)
-    {
+    public Optional<Entity> findNearest(WorldModel world, Point pos, List<Class> kinds) {
         List<Entity> ofType = new LinkedList<>();
-        for (Entity e : world.getEntities()) {
-            if (e instanceof Location) {
-                ofType.add(e);
+        for (Class kind : kinds) {
+            for (Entity entity : world.getEntities()) {
+                if (entity.getClass() == kind) {
+                    ofType.add(entity);
+                }
             }
         }
 

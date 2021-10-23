@@ -28,7 +28,7 @@ public final class Animation implements Action
 
         if (this.repeatCount != 1) {
             scheduler.scheduleEvent(this.entity,
-                    Functions.createAnimationAction(this.entity,
+                    Factory.createAnimationAction(this.entity,
                             Math.max(this.repeatCount - 1,0)),
                     ((AnimateEntity)this.entity).getAnimationPeriod());
         }

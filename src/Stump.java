@@ -25,6 +25,7 @@ public final class Stump implements Entity
         this.position = position;
         this.images = images;
         this.imageIndex = 0;
+
     }
 
 
@@ -35,6 +36,7 @@ public final class Stump implements Entity
     public Point getPosition(){
         return position;
     }
+
 
     //setters;
     public void setPosition(Point position){

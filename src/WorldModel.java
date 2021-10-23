@@ -280,7 +280,7 @@ public final class WorldModel {  // make init vars private and then make getters
         if (properties.length == DUDE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[DUDE_COL]),
                     Integer.parseInt(properties[DUDE_ROW]));
-            Entity entity = Functions.createDudeNotFull(properties[DUDE_ID],
+            Entity entity = Factory.createDudeNotFull(properties[DUDE_ID],
                     pt,
                     Integer.parseInt(properties[DUDE_ACTION_PERIOD]),
                     Integer.parseInt(properties[DUDE_ANIMATION_PERIOD]),
@@ -297,7 +297,7 @@ public final class WorldModel {  // make init vars private and then make getters
         if (properties.length == FAIRY_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[FAIRY_COL]),
                     Integer.parseInt(properties[FAIRY_ROW]));
-            Entity entity = Functions.createFairy(properties[FAIRY_ID],
+            Entity entity = Factory.createFairy(properties[FAIRY_ID],
                     pt,
                     Integer.parseInt(properties[FAIRY_ACTION_PERIOD]),
                     Integer.parseInt(properties[FAIRY_ANIMATION_PERIOD]),
@@ -314,7 +314,7 @@ public final class WorldModel {  // make init vars private and then make getters
         if (properties.length == TREE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[TREE_COL]),
                     Integer.parseInt(properties[TREE_ROW]));
-            Entity entity = Functions.createTree(properties[TREE_ID],
+            Entity entity = Factory.createTree(properties[TREE_ID],
                     pt,
                     Integer.parseInt(properties[TREE_ACTION_PERIOD]),
                     Integer.parseInt(properties[TREE_ANIMATION_PERIOD]),
@@ -331,7 +331,7 @@ public final class WorldModel {  // make init vars private and then make getters
         if (properties.length == OBSTACLE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[OBSTACLE_COL]),
                     Integer.parseInt(properties[OBSTACLE_ROW]));
-            Entity entity = Functions.createObstacle(properties[OBSTACLE_ID], pt,
+            Entity entity = Factory.createObstacle(properties[OBSTACLE_ID], pt,
                     Integer.parseInt(properties[OBSTACLE_ANIMATION_PERIOD]),
                     imageStore.getImageList(OBSTACLE_KEY));
             tryAddEntity(entity);
@@ -345,7 +345,7 @@ public final class WorldModel {  // make init vars private and then make getters
         if (properties.length == HOUSE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[HOUSE_COL]),
                     Integer.parseInt(properties[HOUSE_ROW]));
-            Entity entity = Functions.createHouse(properties[HOUSE_ID], pt,
+            Entity entity = Factory.createHouse(properties[HOUSE_ID], pt,
                     imageStore.getImageList(HOUSE_KEY));
             this.tryAddEntity(entity);
         }

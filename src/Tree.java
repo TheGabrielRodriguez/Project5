@@ -56,6 +56,7 @@ public final class Tree implements Entity, Green, AnimateEntity, RobustEntity
         return position;
     }
     public int getHealth(){ return health; }
+    public void deducteHealth(int given){ health = health - given; }
 
     //setters;
     public void setPosition(Point position){
@@ -74,7 +75,7 @@ public final class Tree implements Entity, Green, AnimateEntity, RobustEntity
         if (!this.transformPlant(world, scheduler, imageStore)) {
 
             scheduler.scheduleEvent(this,
-                    Functions.createActivityAction(this, world, imageStore),
+                    Factory.createActivityAction(this, world, imageStore),
                     this.actionPeriod);
         }
     }
@@ -88,10 +89,10 @@ public final class Tree implements Entity, Green, AnimateEntity, RobustEntity
     {
 
             scheduler.scheduleEvent(this,
-                        Functions.createActivityAction(this, world, imageStore),
+                    Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 scheduler.scheduleEvent(this,
-                        Functions.createAnimationAction(this, 0),
+                        Factory.createAnimationAction(this, 0),
                         getAnimationPeriod());
 
         }
@@ -112,7 +113,7 @@ public final class Tree implements Entity, Green, AnimateEntity, RobustEntity
             ImageStore imageStore)
         {
             if (this.health <= 0) {
-                Tree stump = (Tree) Functions.createStump(this.id,
+                Tree stump = (Tree) Factory.createStump(this.id,
                         this.position,
                         imageStore.getImageList(STUMP_KEY));
 

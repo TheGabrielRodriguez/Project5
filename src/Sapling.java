@@ -64,6 +64,7 @@ public final class Sapling implements Entity, Green, RobustEntity,AnimateEntity
     public int getHealthLimit(){
         return healthLimit;
     }
+    public void deducteHealth(int given){ health =  health - given;}
 
     //setters;
     public void setPosition(Point position){
@@ -80,7 +81,7 @@ public final class Sapling implements Entity, Green, RobustEntity,AnimateEntity
         if (!transformPlant(world, scheduler, imageStore))  //Refer statically until move transformplant to entity then change based on where transformplant goes
         {
             scheduler.scheduleEvent(this,
-                    Functions.createActivityAction(this, world, imageStore),
+                    Factory.createActivityAction(this, world, imageStore),
                     this.actionPeriod);
         }
     }
@@ -94,10 +95,10 @@ public final class Sapling implements Entity, Green, RobustEntity,AnimateEntity
                                  ImageStore imageStore)
     {
         scheduler.scheduleEvent(this,
-                Functions.createActivityAction(this, world, imageStore),
+                Factory.createActivityAction(this, world, imageStore),
                 this.actionPeriod);
         scheduler.scheduleEvent(this,
-                Functions.createAnimationAction(this, 0),
+                Factory.createAnimationAction(this, 0),
                 getAnimationPeriod());
 
 
@@ -122,7 +123,7 @@ public final class Sapling implements Entity, Green, RobustEntity,AnimateEntity
             ImageStore imageStore)
     {
         if (this.getHealth() <= 0) {
-            Sapling stump = (Sapling) Functions.createStump(entity.id,
+            Sapling stump = (Sapling) Factory.createStump(entity.id,
                     entity.position,
                     imageStore.getImageList(STUMP_KEY));
 
@@ -136,7 +137,7 @@ public final class Sapling implements Entity, Green, RobustEntity,AnimateEntity
         }
         else if (this.getHealth()>= this.getHealthLimit())
         {
-            Sapling tree = (Sapling) Functions.createTree("tree_" + entity.id,
+            Sapling tree = (Sapling) Factory.createTree("tree_" + entity.id,
                     entity.position,
                     Functions.getNumFromRange(TREE_ACTION_MAX, TREE_ACTION_MIN),
                     Functions.getNumFromRange(TREE_ANIMATION_MAX, TREE_ANIMATION_MIN),

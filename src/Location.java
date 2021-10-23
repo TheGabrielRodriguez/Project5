@@ -1,6 +1,6 @@
 import java.util.*;
 public interface Location extends Entity{
-    Optional<Entity> findNearest(WorldModel world, Point point, Entity entity);
+    Optional<Entity> findNearest(WorldModel world, Point pos, List<Class> kinds);
 
     Optional<Entity> nearestEntity(List<Entity> entities, Point pos);
 
