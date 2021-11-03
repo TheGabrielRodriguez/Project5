@@ -1,7 +1,7 @@
 /**
  * An action that can be taken by an entity
  */
-public final class Animation implements Action
+public final class Animation extends Action
 {
     private final Entity entity;
     private final int repeatCount;
@@ -24,13 +24,13 @@ public final class Animation implements Action
 
     private void executeAnimationAction(EventScheduler scheduler)
     {
-        ((AnimateEntity)this.entity).nextImage();
+        ((ActivityEntity)this.entity).nextImage();
 
         if (this.repeatCount != 1) {
             scheduler.scheduleEvent(this.entity,
                     Factory.createAnimationAction(this.entity,
                             Math.max(this.repeatCount - 1,0)),
-                    ((AnimateEntity)this.entity).getAnimationPeriod());
+                    ((ActivityEntity)this.entity).getAnimationPeriod());
         }
     }
 

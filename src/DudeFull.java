@@ -6,89 +6,22 @@ import java.util.*;
  * An entity that exists in the world. See EntityKind for the
  * different kinds of entities that exist.
  */
-public final class DudeFull implements Entity, AnimateEntity,RobustEntity,Location
+public final class DudeFull extends RobustEntity
 {
-    private final String id;
-    private Point position; //make a getter, then make a setter if it gets set
-    private final List<PImage> images;
-    private int imageIndex;
     private final int resourceLimit;
-    private final int actionPeriod;
-    private final int animationPeriod;
 
-
-
-    public DudeFull(
-            String id,
-            Point position,
-            List<PImage> images,
-            int resourceLimit,
-            int actionPeriod,
-            int animationPeriod)
-    {
-        this.id = id;
-        this.position = position;
-        this.images = images;
-        this.imageIndex = 0;
+    public DudeFull(String id, Point position, List<PImage> images, int animationPeriod, int actionPeriod, int resourceLimit) {
+        super(id, position, images, animationPeriod, actionPeriod);
         this.resourceLimit = resourceLimit;
-        this.actionPeriod = actionPeriod;
-        this.animationPeriod = animationPeriod;
     }
 
 
-    //getters;
-    public String getId(){
-        return id;
-    }
-    public Point getPosition(){
-        return position;
-    }
-
-    //setters;
-    public void setPosition(Point position){
-        this.position = position;
-    }
-
-
-    public Optional<Entity> nearestEntity(List<Entity> entities, Point pos)
-    {
-        if (entities.isEmpty()) {
-            return Optional.empty();
-        }
-        else {
-            Entity nearest = entities.get(0);
-            int nearestDistance = nearest.getPosition().distanceSquared(pos);
-
-            for (Entity entity : entities) {
-                int otherDistance = entity.getPosition().distanceSquared(pos);
-
-                if (otherDistance < nearestDistance) {
-                    nearest = entity;
-                    nearestDistance = otherDistance;
-                }
-            }
-
-            return Optional.of(nearest);
-        }
-    }
-
-    public Optional<Entity> findNearest(WorldModel world, Point pos, List<Class> kinds) {
-        List<Entity> ofType = new LinkedList<>();
-        for (Class kind : kinds) {
-            for (Entity entity : world.getEntities()) {
-                if (entity.getClass() == kind){
-                    ofType.add(entity);
-                }
-            }
-        }
-        return nearestEntity(ofType, pos);
-    }
 
 
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler)
     {
-        Optional<Entity> fullTarget = this.findNearest(world, this.position, new ArrayList<>(Arrays.asList(House.class)));
+        Optional<Entity> fullTarget = this.findNearest(world, super.getPosition(), new ArrayList<>(Arrays.asList(House.class)));
 
         if (fullTarget.isPresent() &&
                 this.moveTo(world, fullTarget.get(), scheduler))
@@ -99,7 +32,7 @@ public final class DudeFull implements Entity, AnimateEntity,RobustEntity,Locati
         {
             scheduler.scheduleEvent(this,
                     Factory.createActivityAction(this, world, imageStore),
-                    this.actionPeriod);
+                    super.getActionPeriod());
         }
     }
 
@@ -108,13 +41,13 @@ public final class DudeFull implements Entity, AnimateEntity,RobustEntity,Locati
             Entity target,
             EventScheduler scheduler)
     {
-        if (this.position.adjacent(target.getPosition())) {
+        if (super.getPosition().adjacent(target.getPosition())) {
             return true;
         }
         else {
             Point nextPos = this.nextPosition(world, target.getPosition());
 
-            if (!this.position.equals(nextPos)) {
+            if (!super.getPosition().equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
@@ -128,20 +61,6 @@ public final class DudeFull implements Entity, AnimateEntity,RobustEntity,Locati
 
 
 
-    public void scheduleActions( //entity bc we have a switch function that calls entities data
-
-                                 EventScheduler scheduler,
-                                 WorldModel world,
-                                 ImageStore imageStore)
-    {           scheduler.scheduleEvent(this,
-            Factory.createActivityAction(this, world, imageStore),
-                        this.actionPeriod);
-                scheduler.scheduleEvent(this,
-                        Factory.createAnimationAction(this, 0),
-                        this.animationPeriod);
-
-        }
-
 
     private void transformFull( // use entity data a lot, gets dotted into a lot
                                        //make all instance variables private, purposefully leave things in function if they belong
@@ -150,11 +69,11 @@ public final class DudeFull implements Entity, AnimateEntity,RobustEntity,Locati
                                       EventScheduler scheduler,
                                       ImageStore imageStore)
     {
-        Entity miner = Factory.createDudeFull(this.id,
-                this.position, this.actionPeriod,
-                this.animationPeriod,
+        Entity miner = Factory.createDudeFull(super.getId(),
+                super.getPosition(), super.getActionPeriod(),
+                super.getAnimationPeriod(),
                 this.resourceLimit,
-                this.images);
+                super.getImages());
 
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
@@ -164,44 +83,24 @@ public final class DudeFull implements Entity, AnimateEntity,RobustEntity,Locati
     }
 
 
-    public PImage getCurrentImage() { // get rid of static and get rid of parameter
-        // put it into both entity and background
-            return images.get(this.imageIndex);
-
-        }
-
-
-
 
     public Point nextPosition( //rename to just nextposition as already in dudefull
                                           WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.getX() - this.position.getX());
-        Point newPos = new Point(this.position.getX() + horiz, this.position.getY());
+        int horiz = Integer.signum(destPos.getX() - super.getPosition().getX());
+        Point newPos = new Point(super.getPosition().getX() + horiz, super.getPosition().getY());
 
         if (horiz == 0 || world.isOccupied(newPos)) {
-            int vert = Integer.signum(destPos.getY() - this.position.getY());
-            newPos = new Point(this.position.getX(), this.position.getY() + vert);
+            int vert = Integer.signum(destPos.getY() - super.getPosition().getY());
+            newPos = new Point(super.getPosition().getX(), super.getPosition().getY() + vert);
 
             if (vert == 0 || world.isOccupied(newPos)) {
-                newPos = this.position;
+                newPos = super.getPosition();
             }
         }
         return newPos;
     }
 
-    public int getAnimationPeriod() { return this.animationPeriod;}
-
-    public void nextImage() {
-        this.imageIndex = (this.imageIndex + 1) % this.images.size();
-    }
-
-
-
-    public int getResourceLimit() { return resourceLimit; }
-    public int getActionPeriod() { return actionPeriod; }
-    public List<PImage> getImages() { return images; }
-    public int getImageIndex() { return imageIndex; }
 }
 
 

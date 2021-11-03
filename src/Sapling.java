@@ -6,16 +6,9 @@ import java.util.*;
  * An entity that exists in the world. See EntityKind for the
  * different kinds of entities that exist.
  */
-public final class Sapling implements Entity, Green, RobustEntity,AnimateEntity
-{
-    private final String id;
-    private Point position; //make a getter, then make a setter if it gets set
-    private final List<PImage> images;
-    private int imageIndex;
-    private final int actionPeriod;
-    private final int animationPeriod;
+public final class Sapling extends Green {
     private final int healthLimit;
-    private int health;
+
 
     private static final int TREE_ANIMATION_MAX = 600;
     private static final int TREE_ANIMATION_MIN = 50;
@@ -27,104 +20,32 @@ public final class Sapling implements Entity, Green, RobustEntity,AnimateEntity
 
     private static final String STUMP_KEY = "stump";
 
-
-    public Sapling(
-
-            String id,
-            Point position,
-            List<PImage> images,
-            int actionPeriod,
-            int animationPeriod,
-            int health,
-            int healthLimit)
-    {
-        this.id = id;
-        this.position = position;
-        this.images = images;
-        this.imageIndex = 0;
-        this.actionPeriod = actionPeriod;
-        this.animationPeriod = animationPeriod;
-        this.health = health;
+    public Sapling(String id, Point position, List<PImage> images, int animationPeriod, int actionPeriod, int health, int healthLimit) {
+        super(id, position, images, animationPeriod, actionPeriod, health);
         this.healthLimit = healthLimit;
-
     }
 
 
     //getters;
 
-    public String getId(){
-        return id;
-    }
-    public Point getPosition(){
-        return position;
-    }
-    public int getHealth(){
-        return health;
-    }
-    public int getHealthLimit(){
+
+    public int getHealthLimit() {
         return healthLimit;
     }
-    public void deductHealth(int given){ health =  health - given;}
+
 
     //setters;
-    public void setPosition(Point position){
-        this.position = position;
-    }
-
-
-    public void executeActivity(
-            WorldModel world,
-            ImageStore imageStore,
-            EventScheduler scheduler)
-    {
-        this.health++;
-        if (!transformPlant(world, scheduler, imageStore))  //Refer statically until move transformplant to entity then change based on where transformplant goes
-        {
-            scheduler.scheduleEvent(this,
-                    Factory.createActivityAction(this, world, imageStore),
-                    this.actionPeriod);
-        }
-    }
 
 
 
-    public void scheduleActions( //entity bc we have a switch function that calls entities data
-
-                                 EventScheduler scheduler,
-                                 WorldModel world,
-                                 ImageStore imageStore)
-    {
-        scheduler.scheduleEvent(this,
-                Factory.createActivityAction(this, world, imageStore),
-                this.actionPeriod);
-        scheduler.scheduleEvent(this,
-                Factory.createAnimationAction(this, 0),
-                getAnimationPeriod());
-
-
-        }
-
-
-
-
-    public PImage getCurrentImage() { // get rid of static and get rid of parameter
-        // put it into both entity and background
-            return images.get(this.imageIndex);
-
-        }
-
-
-
-
-    private boolean transformSapling(
+    public boolean transformSapling(
             Sapling entity,
             WorldModel world,
             EventScheduler scheduler,
-            ImageStore imageStore)
-    {
-        if (this.getHealth() <= 0) {
-            Sapling stump = (Sapling) Factory.createStump(entity.id,
-                    entity.position,
+            ImageStore imageStore) {
+        if (super.getHealth() <= 0) {
+            Sapling stump = (Sapling) Factory.createStump(super.getId(),
+                    super.getPosition(),
                     imageStore.getImageList(STUMP_KEY));
 
             world.removeEntity(entity);
@@ -134,11 +55,9 @@ public final class Sapling implements Entity, Green, RobustEntity,AnimateEntity
             stump.scheduleActions(scheduler, world, imageStore);
 
             return true;
-        }
-        else if (this.getHealth()>= this.getHealthLimit())
-        {
-            Sapling tree = (Sapling) Factory.createTree("tree_" + entity.id,
-                    entity.position,
+        } else if (super.getHealth() >= this.getHealthLimit()) {
+            Sapling tree = (Sapling) Factory.createTree("tree_" + super.getId(),
+                    super.getPosition(),
                     Functions.getNumFromRange(TREE_ACTION_MAX, TREE_ACTION_MIN),
                     Functions.getNumFromRange(TREE_ANIMATION_MAX, TREE_ANIMATION_MIN),
                     Functions.getNumFromRange(TREE_HEALTH_MAX, TREE_HEALTH_MIN),
@@ -158,21 +77,24 @@ public final class Sapling implements Entity, Green, RobustEntity,AnimateEntity
 
 
 
-    public int getAnimationPeriod() {
-        return this.animationPeriod;
-    }
-
-    public void nextImage(){
-        this.imageIndex = (this.imageIndex + 1) % this.images.size();
-    }
-
-
-
+    @Override
     public boolean transformPlant(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {return transformSapling(this, world, scheduler, imageStore); }
-    public List<PImage> getImages(){ return images; }
-    public int getImageIndex(){ return imageIndex; }
-    public int getActionPeriod() { return actionPeriod; }
+
+    public void executeActivity(
+            WorldModel world,
+            ImageStore imageStore,
+            EventScheduler scheduler)
+    {
+        super.setHealth();
+        if (!transformPlant(world, scheduler, imageStore))  //Refer statically until move transformplant to entity then change based on where transformplant goes
+        {
+            scheduler.scheduleEvent(this,
+                    Factory.createActivityAction(this, world, imageStore),
+                    super.getActionPeriod());
+        }
+    }
 }
+
 
 
 

@@ -1,7 +1,7 @@
 /**
  * An action that can be taken by an entity
  */
-public final class Activity implements Action
+public final class Activity extends Action
 {
     private final Entity entity;
     private final WorldModel world;
@@ -25,7 +25,7 @@ public final class Activity implements Action
 
     public void executeActivityAction(EventScheduler scheduler)
     {
-        ((RobustEntity)this.entity).executeActivity(world,
+        ((ActivityEntity)this.entity).executeActivity(world,
                 imageStore, scheduler);
 
     }

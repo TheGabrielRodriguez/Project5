@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.Optional;
 
@@ -162,7 +161,7 @@ public final class VirtualWorld extends PApplet
     public void scheduleActions(WorldModel world, EventScheduler scheduler, ImageStore imageStore)
     {
         for (Entity entity : world.getEntities()) {
-            if (entity instanceof RobustEntity && entity instanceof AnimateEntity){
+            if (entity instanceof RobustEntity && entity instanceof ActivityEntity){
                 ((RobustEntity)entity).scheduleActions(scheduler, world, imageStore);
                 }
             }

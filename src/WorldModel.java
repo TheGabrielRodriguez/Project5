@@ -119,20 +119,6 @@ public final class WorldModel {  // make init vars private and then make getters
                 && pos.getX() < this.numCols;
     }
 
-//    public Optional<Entity> findNearest(Point pos, List<EntityKind> kinds) {
-//        List<Entity> ofType = new LinkedList<>();
-//        for (EntityKind kind : kinds) {
-//            for (Entity entity : this.entities) {
-//                if (entity.getKind() == kind) {
-//                    ofType.add(entity);
-//                }
-//            }
-//        }
-//
-//        return Entity.nearestEntity(ofType, pos);
-//    }
-
-
     private void setBackgroundCell(Point pos, Background background) {
         this.background[pos.getY()][pos.getX()] = background;
     }
