@@ -21,22 +21,21 @@ public final class Tree extends Green
             EventScheduler scheduler,
             ImageStore imageStore)
         {
-            if (super.getHealth() <= 0) {
-                Tree stump = (Tree) Factory.createStump(super.getId(),
-                        super.getPosition(),
+            if (this.getHealth() <= 0) {
+                Entity stump = Factory.createStump(this.getId(),
+                        this.getPosition(),
                         imageStore.getImageList(STUMP_KEY));
 
                 world.removeEntity(this);
                 scheduler.unscheduleAllEvents(this);
 
                 world.addEntity(stump);
-                stump.scheduleActions(scheduler, world, imageStore);
-
                 return true;
             }
 
             return false;
         }
+
     @Override
     public boolean transformPlant(WorldModel world, EventScheduler scheduler, ImageStore imageStore) { return transformTree(world, scheduler, imageStore); }
 
@@ -50,7 +49,7 @@ public final class Tree extends Green
 
             scheduler.scheduleEvent(this,
                     Factory.createActivityAction(this, world, imageStore),
-                    super.getActionPeriod());
+                    this.getActionPeriod());
         }
     }
 

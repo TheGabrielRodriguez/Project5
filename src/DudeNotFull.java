@@ -18,7 +18,7 @@ public final class DudeNotFull extends RobustEntity
     }
 
 
-    public void executeActivity(
+    protected void executeActivity(
             WorldModel world,
             ImageStore imageStore,
             EventScheduler scheduler)
@@ -33,7 +33,7 @@ public final class DudeNotFull extends RobustEntity
         {
             scheduler.scheduleEvent(this,
                     Factory.createActivityAction(this, world, imageStore),
-                    super.getActionPeriod());
+                    this.getActionPeriod());
         }
     }
 
@@ -48,17 +48,17 @@ public final class DudeNotFull extends RobustEntity
                                      ImageStore imageStore)
     {
         if (this.resourceCount >= this.resourceLimit) {
-            Entity miner = Factory.createDudeNotFull(super.getId(),
-                    super.getPosition(), super.getActionPeriod(),
-                    super.getAnimationPeriod(),
+            Entity miner = Factory.createDudeFull(this.getId(),
+                    this.getPosition(), this.getActionPeriod(),
+                    this.getAnimationPeriod(),
                     this.resourceLimit,
-                    super.getImages());
+                    this.getImages());
 
             world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);
 
             world.addEntity(miner);
-            this.scheduleActions(scheduler, world, imageStore);
+            ((DudeFull) miner).scheduleActions(scheduler, world, imageStore);
 
             return true;
         }
@@ -69,18 +69,18 @@ public final class DudeNotFull extends RobustEntity
 
 
 
-    public Point nextPosition( //entity
+    public Point nextPosition( //entity  //check creates and order of variables in the parameters, then check constructors
                                           WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.getX() - super.getPosition().getX());
-        Point newPos = new Point(super.getPosition().getX() + horiz, super.getPosition().getY());
+        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
+        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
 
-        if (horiz == 0 || world.isOccupied(newPos)) {
-            int vert = Integer.signum(destPos.getY() - super.getPosition().getY());
-            newPos = new Point(super.getPosition().getX(), super.getPosition().getY() + vert);
+        if (horiz == 0 || world.isOccupied(newPos) && world.getOccupancyCell(newPos).getClass() != Stump.class) {
+            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
+            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
 
             if (vert == 0 || world.isOccupied(newPos)) {
-                newPos = super.getPosition();
+                newPos = this.getPosition();
             }
         }
 
@@ -94,7 +94,7 @@ public final class DudeNotFull extends RobustEntity
             Entity target,
             EventScheduler scheduler)
     {
-        if (super.getPosition().adjacent(target.getPosition())) {
+        if (this.getPosition().adjacent(target.getPosition())) {
             this.resourceCount += 1;
             ((Green)target).deductHealth(1);
 
@@ -103,7 +103,7 @@ public final class DudeNotFull extends RobustEntity
         else {
             Point nextPos = this.nextPosition(world, target.getPosition());
 
-            if (!super.getPosition().equals(nextPos)) {
+            if (!this.getPosition().equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());

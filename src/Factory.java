@@ -28,7 +28,7 @@ public class Factory {
             String id, Point position, int animationPeriod, List<PImage> images)
     {
         return new Obstacle(id, position, images,
-                animationPeriod, 0);
+                animationPeriod);
     }
 
     public static Entity createTree(
@@ -40,7 +40,7 @@ public class Factory {
             List<PImage> images)
     {
         return new Tree(id, position, images,
-                actionPeriod, animationPeriod, health);
+                animationPeriod, actionPeriod, health);
     }
 
     public static Entity createStump(
@@ -69,7 +69,7 @@ public class Factory {
             List<PImage> images)
     {
         return new Fairy(id, position, images,
-                actionPeriod, animationPeriod);
+                animationPeriod, actionPeriod);
     }
 
     // need resource count, though it always starts at 0
@@ -81,8 +81,8 @@ public class Factory {
             int resourceLimit,
             List<PImage> images)
     {
-        return new DudeNotFull(id, position, images, resourceLimit, 0,
-                actionPeriod, animationPeriod);
+        return new DudeNotFull(id, position, images, animationPeriod, actionPeriod,resourceLimit,
+                0);
     }
 
     // don't technically need resource count ... full
@@ -93,7 +93,7 @@ public class Factory {
             int animationPeriod,
             int resourceLimit,
             List<PImage> images) {
-        return new DudeFull(id, position, images, resourceLimit,
-                actionPeriod, animationPeriod);
+        return new DudeFull(id, position, images, animationPeriod,
+                actionPeriod, resourceLimit);
     }
 }

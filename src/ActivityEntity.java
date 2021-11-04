@@ -10,7 +10,6 @@ public abstract class ActivityEntity extends AnimateEntity {
         this.actionPeriod = actionPeriod;
     }
 
-    public void nextImage(){ super.setNextImage(); }
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
         super.scheduleActions(scheduler,world, imageStore);
         scheduler.scheduleEvent(this,

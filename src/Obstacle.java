@@ -9,7 +9,7 @@ import java.util.*;
 public final class Obstacle extends AnimateEntity
 {
 
-    public Obstacle(String id, Point position, List<PImage> images, int period, int animationPeriod) {
+    public Obstacle(String id, Point position, List<PImage> images, int animationPeriod) {
         super(id, position, images,animationPeriod);
     }
 

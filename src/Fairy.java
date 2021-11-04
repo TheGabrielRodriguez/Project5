@@ -26,7 +26,7 @@ public final class Fairy extends RobustEntity
             Point tgtPos = fairyTarget.get().getPosition();
 
             if (this.moveTo(world, fairyTarget.get(), scheduler)) {
-                Fairy sapling = (Fairy) Factory.createSapling("sapling_" + super.getId(), tgtPos,
+                ActivityEntity sapling = (ActivityEntity) Factory.createSapling("sapling_" + this.getId(), tgtPos,
                         imageStore.getImageList(world.getSaplingKey()));
 
                 world.addEntity(sapling);
@@ -36,7 +36,7 @@ public final class Fairy extends RobustEntity
 
         scheduler.scheduleEvent(this,
                 Factory.createActivityAction(this, world, imageStore),
-                super.getActionPeriod());
+                this.getActionPeriod());
     }
 
 
@@ -47,15 +47,15 @@ public final class Fairy extends RobustEntity
     public Point nextPosition( //entity bc moving entity data a lot, using specific fairies data a lot so entity and not worldmodel
                                            WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.getX() - super.getPosition().getX());
-        Point newPos = new Point(super.getPosition().getX() + horiz, super.getPosition().getY());
+        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
+        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
 
         if (horiz == 0 || world.isOccupied(newPos)) {
-            int vert = Integer.signum(destPos.getY() - super.getPosition().getY());
-            newPos = new Point(super.getPosition().getX(), super.getPosition().getY() + vert);
+            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
+            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
 
             if (vert == 0 || world.isOccupied(newPos)) {
-                newPos = super.getPosition();
+                newPos = this.getPosition();
             }
         }
 
@@ -68,7 +68,7 @@ public final class Fairy extends RobustEntity
             Entity target,
             EventScheduler scheduler)
     {
-        if (super.getPosition().adjacent(target.getPosition())) {
+        if (this.getPosition().adjacent(target.getPosition())) {
             world.removeEntity(target);
             scheduler.unscheduleAllEvents(target);
             return true;
@@ -76,7 +76,7 @@ public final class Fairy extends RobustEntity
         else {
             Point nextPos = nextPosition(world, target.getPosition());
 
-            if (!super.getPosition().equals(nextPos)) {
+            if (!this.getPosition().equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());

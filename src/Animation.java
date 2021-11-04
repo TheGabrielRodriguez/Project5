@@ -24,13 +24,13 @@ public final class Animation extends Action
 
     private void executeAnimationAction(EventScheduler scheduler)
     {
-        ((ActivityEntity)this.entity).nextImage();
+        ((AnimateEntity)this.entity).nextImage();
 
         if (this.repeatCount != 1) {
             scheduler.scheduleEvent(this.entity,
                     Factory.createAnimationAction(this.entity,
                             Math.max(this.repeatCount - 1,0)),
-                    ((ActivityEntity)this.entity).getAnimationPeriod());
+                    ((AnimateEntity)this.entity).getAnimationPeriod());
         }
     }
 

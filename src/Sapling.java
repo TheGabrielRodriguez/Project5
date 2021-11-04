@@ -43,21 +43,21 @@ public final class Sapling extends Green {
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore) {
-        if (super.getHealth() <= 0) {
-            Sapling stump = (Sapling) Factory.createStump(super.getId(),
-                    super.getPosition(),
+        if (this.getHealth() <= 0) {
+            Entity stump = Factory.createStump(this.getId(),
+                    this.getPosition(),
                     imageStore.getImageList(STUMP_KEY));
 
             world.removeEntity(entity);
             scheduler.unscheduleAllEvents(entity);
 
             world.addEntity(stump);
-            stump.scheduleActions(scheduler, world, imageStore);
+
 
             return true;
-        } else if (super.getHealth() >= this.getHealthLimit()) {
-            Sapling tree = (Sapling) Factory.createTree("tree_" + super.getId(),
-                    super.getPosition(),
+        } else if (this.getHealth() >= this.getHealthLimit()) {
+            ActivityEntity tree = (ActivityEntity) Factory.createTree("tree_" + this.getId(),
+                    this.getPosition(),
                     Functions.getNumFromRange(TREE_ACTION_MAX, TREE_ACTION_MIN),
                     Functions.getNumFromRange(TREE_ANIMATION_MAX, TREE_ANIMATION_MIN),
                     Functions.getNumFromRange(TREE_HEALTH_MAX, TREE_HEALTH_MIN),
@@ -85,12 +85,12 @@ public final class Sapling extends Green {
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        super.setHealth();
+        this.setHealth();
         if (!transformPlant(world, scheduler, imageStore))  //Refer statically until move transformplant to entity then change based on where transformplant goes
         {
             scheduler.scheduleEvent(this,
                     Factory.createActivityAction(this, world, imageStore),
-                    super.getActionPeriod());
+                    this.getActionPeriod());
         }
     }
 }

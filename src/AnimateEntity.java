@@ -10,6 +10,7 @@ public abstract class AnimateEntity extends Entity{
         this.animationPeriod = animationPeriod;
     }
 
+    public void nextImage(){ super.setNextImage(); }
 
     public int getAnimationPeriod(){
         return this.animationPeriod;
@@ -17,7 +18,7 @@ public abstract class AnimateEntity extends Entity{
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
         scheduler.scheduleEvent(this,
                 Factory.createAnimationAction(this, 0),
-                getAnimationPeriod());
+                this.getAnimationPeriod());
     }
 }
 

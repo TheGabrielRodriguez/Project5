@@ -21,7 +21,7 @@ public final class DudeFull extends RobustEntity
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler)
     {
-        Optional<Entity> fullTarget = this.findNearest(world, super.getPosition(), new ArrayList<>(Arrays.asList(House.class)));
+        Optional<Entity> fullTarget = this.findNearest(world, this.getPosition(), new ArrayList<>(Arrays.asList(House.class)));
 
         if (fullTarget.isPresent() &&
                 this.moveTo(world, fullTarget.get(), scheduler))
@@ -32,7 +32,7 @@ public final class DudeFull extends RobustEntity
         {
             scheduler.scheduleEvent(this,
                     Factory.createActivityAction(this, world, imageStore),
-                    super.getActionPeriod());
+                    this.getActionPeriod());
         }
     }
 
@@ -41,19 +41,19 @@ public final class DudeFull extends RobustEntity
             Entity target,
             EventScheduler scheduler)
     {
-        if (super.getPosition().adjacent(target.getPosition())) {
+        if (this.getPosition().adjacent(target.getPosition())) {
             return true;
         }
         else {
             Point nextPos = this.nextPosition(world, target.getPosition());
 
-            if (!super.getPosition().equals(nextPos)) {
+            if (!this.getPosition().equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
 
-                world.moveEntity(target,nextPos);
+                world.moveEntity(this,nextPos);
             }
             return false;
         }
@@ -69,17 +69,17 @@ public final class DudeFull extends RobustEntity
                                       EventScheduler scheduler,
                                       ImageStore imageStore)
     {
-        Entity miner = Factory.createDudeFull(super.getId(),
-                super.getPosition(), super.getActionPeriod(),
-                super.getAnimationPeriod(),
+        Entity miner = Factory.createDudeNotFull(this.getId(),
+                this.getPosition(), this.getActionPeriod(),
+                this.getAnimationPeriod(),
                 this.resourceLimit,
-                super.getImages());
+                this.getImages());
 
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
 
         world.addEntity(miner);
-        ((RobustEntity)miner).scheduleActions(scheduler, world, imageStore);
+        ((DudeNotFull)miner).scheduleActions(scheduler, world, imageStore);
     }
 
 
@@ -87,15 +87,15 @@ public final class DudeFull extends RobustEntity
     public Point nextPosition( //rename to just nextposition as already in dudefull
                                           WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.getX() - super.getPosition().getX());
-        Point newPos = new Point(super.getPosition().getX() + horiz, super.getPosition().getY());
+        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
+        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
 
-        if (horiz == 0 || world.isOccupied(newPos)) {
-            int vert = Integer.signum(destPos.getY() - super.getPosition().getY());
-            newPos = new Point(super.getPosition().getX(), super.getPosition().getY() + vert);
+        if (horiz == 0 || world.isOccupied(newPos) && world.getOccupancyCell(newPos).getClass() != Stump.class) {
+            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
+            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
 
             if (vert == 0 || world.isOccupied(newPos)) {
-                newPos = super.getPosition();
+                newPos = this.getPosition();
             }
         }
         return newPos;
