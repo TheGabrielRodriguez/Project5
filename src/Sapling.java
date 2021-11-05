@@ -38,7 +38,7 @@ public final class Sapling extends Green {
 
 
 
-    public boolean transformSapling(
+    private boolean transformSapling(
             Sapling entity,
             WorldModel world,
             EventScheduler scheduler,

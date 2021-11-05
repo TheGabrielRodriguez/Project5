@@ -18,7 +18,7 @@ public final class DudeNotFull extends RobustEntity
     }
 
 
-    protected void executeActivity(
+    public void executeActivity(
             WorldModel world,
             ImageStore imageStore,
             EventScheduler scheduler)

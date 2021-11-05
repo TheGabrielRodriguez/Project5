@@ -18,6 +18,6 @@ public abstract class Green extends ActivityEntity {
     public int getHealth(){
         return health;
     }
-    public void setHealth(){health ++; }
-    //not have animationperiod and action in constructor, uml
+    public void setHealth(){health ++;}
+
 }

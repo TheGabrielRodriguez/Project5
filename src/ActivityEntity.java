@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 
 public abstract class ActivityEntity extends AnimateEntity {
-    private int actionPeriod;
+    private final int actionPeriod;
 
     public ActivityEntity(String id, Point position, List<PImage> images, int animationPeriod, int actionPeriod) {
         super(id, position, images, animationPeriod);

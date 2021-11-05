@@ -16,7 +16,7 @@ public final class Tree extends Green
     }
 
 
-    public boolean transformTree(
+    private boolean transformTree(
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore)

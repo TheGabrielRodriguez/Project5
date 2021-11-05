@@ -12,9 +12,6 @@ public class House extends Entity
         super(id, position, image);
     }
 
-    //does house need imageindex?
-
-
 }
 
 
