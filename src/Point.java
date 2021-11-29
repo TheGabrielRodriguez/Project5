@@ -3,8 +3,8 @@
  */
 public final class Point
 {
-    private final int x;
-    private final int y;
+    public final int x;
+    public final int y;
 
     //getters
     public int getX(){
@@ -46,7 +46,7 @@ public final class Point
         int deltaX = this.x - p2.x;
         int deltaY = this.y - p2.y;
 
-        return deltaX * deltaX + deltaY * deltaY;
+        return (int) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
 }

@@ -114,7 +114,7 @@ public final class WorldModel {  // make init vars private and then make getters
         }
     }
 
-    private boolean withinBounds(Point pos) {  // worldmodel
+    public boolean withinBounds(Point pos) {  // worldmodel
         return pos.getY() >= 0 && pos.getY() < this.numRows && pos.getX() >= 0
                 && pos.getX() < this.numCols;
     }

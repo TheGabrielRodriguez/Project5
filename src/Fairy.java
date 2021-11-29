@@ -1,6 +1,9 @@
 import processing.core.PImage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * An entity that exists in the world. See EntityKind for the
@@ -8,6 +11,8 @@ import java.util.*;
  */
 public final class Fairy extends RobustEntity
 {
+    public PathingStrategy path = new AStarPathingStrategy();
+
     public Fairy(String id, Point position, List<PImage> images, int animationPeriod, int actionPeriod) {
         super(id, position, images, animationPeriod, actionPeriod);
     }
@@ -42,24 +47,13 @@ public final class Fairy extends RobustEntity
 
 
 
-
-
-    public Point nextPosition( //entity bc moving entity data a lot, using specific fairies data a lot so entity and not worldmodel
-                                           WorldModel world, Point destPos)
+    public Point nextPosition(WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
-        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
-
-        if (horiz == 0 || world.isOccupied(newPos)) {
-            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
-            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
-
-            if (vert == 0 || world.isOccupied(newPos)) {
-                newPos = this.getPosition();
-            }
-        }
-
-        return newPos;
+        List<Point> subsequentPath;
+        subsequentPath = path.computePath(this.getPosition(), destPos, point -> world.withinBounds(point) && !world.isOccupied(point), (p1,p2) -> p1.adjacent(p2), PathingStrategy.CARDINAL_NEIGHBORS);
+        if (subsequentPath.size() == 0)  //if no path the computePath call will return 0 and the size of the List of Points will be zero; if so return current position
+            return getPosition();
+        return subsequentPath.get(0);   //return first element0 in List of Points
     }
 
 

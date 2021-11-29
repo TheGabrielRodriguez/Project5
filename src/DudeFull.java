@@ -9,6 +9,7 @@ import java.util.*;
 public final class DudeFull extends RobustEntity
 {
     private final int resourceLimit;
+    public PathingStrategy path = new AStarPathingStrategy();
 
     public DudeFull(String id, Point position, List<PImage> images, int animationPeriod, int actionPeriod, int resourceLimit) {
         super(id, position, images, animationPeriod, actionPeriod);
@@ -87,21 +88,13 @@ public final class DudeFull extends RobustEntity
     public Point nextPosition( //rename to just nextposition as already in dudefull
                                           WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
-        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
+        List<Point> subsequentPath;
+        subsequentPath = path.computePath(this.getPosition(), destPos, point -> world.withinBounds(point) && (!world.isOccupied(point) ||(world.getOccupancyCell(point).getClass() == Stump.class)), (p1,p2) -> p1.adjacent(p2), PathingStrategy.CARDINAL_NEIGHBORS);
+        if (subsequentPath.size() == 0)  //if no path the computePath call will return 0 and the size of the List of Points will be zero; if so return current position
+            return getPosition();
+        return subsequentPath.get(0);   //return first element0 in List of Points
 
-        if (horiz == 0 || world.isOccupied(newPos) && world.getOccupancyCell(newPos).getClass() != Stump.class) {
-            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
-            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
-
-            if (vert == 0 || world.isOccupied(newPos)) {
-                newPos = this.getPosition();
-            }
-        }
-        return newPos;
-    }
-
-}
+}}
 
 
 

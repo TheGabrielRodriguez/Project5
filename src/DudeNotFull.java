@@ -10,6 +10,7 @@ public final class DudeNotFull extends RobustEntity
 {
     private final int resourceLimit;
     private int resourceCount;
+    public PathingStrategy path = new AStarPathingStrategy();
 
     public DudeNotFull(String id, Point position, List<PImage> images, int animationPeriod, int actionPeriod, int resourceLimit, int resourceCount) {
         super(id, position, images, animationPeriod, actionPeriod);
@@ -72,19 +73,11 @@ public final class DudeNotFull extends RobustEntity
     public Point nextPosition( //entity  //check creates and order of variables in the parameters, then check constructors
                                           WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
-        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
-
-        if (horiz == 0 || world.isOccupied(newPos) && world.getOccupancyCell(newPos).getClass() != Stump.class) {
-            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
-            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
-
-            if (vert == 0 || world.isOccupied(newPos)) {
-                newPos = this.getPosition();
-            }
-        }
-
-        return newPos;
+        List<Point> subsequentPath;
+        subsequentPath = path.computePath(this.getPosition(), destPos, point -> world.withinBounds(point) && (!world.isOccupied(point) ||(world.getOccupancyCell(point).getClass() == Stump.class)), (p1,p2) -> p1.adjacent(p2), PathingStrategy.CARDINAL_NEIGHBORS);
+        if (subsequentPath.size() == 0)  //if no path the computePath call will return 0 and the size of the List of Points will be zero; if so return current position
+            return getPosition();
+        return subsequentPath.get(0);
     }
 
 
