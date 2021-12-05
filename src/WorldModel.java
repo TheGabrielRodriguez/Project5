@@ -72,6 +72,14 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int DUDE_ACTION_PERIOD = 5;
     private static final int DUDE_ANIMATION_PERIOD = 6;
 
+    private static final String CHARIZARD_KEY = "charizard";
+    private static final int CHARIZARD_NUM_PROPERTIES = 6;
+    private static final int CHARIZARD_ID = 1;
+    private static final int CHARIZARD_COL = 2;
+    private static final int CHARIZARD_ROW = 3;
+    private static final int CHARIZARD_ACTION_PERIOD = 4;
+    private static final int CHARIZARD_ANIMATION_PERIOD = 5;
+
     private static final String HOUSE_KEY = "house";
     private static final int HOUSE_NUM_PROPERTIES = 4;
     private static final int HOUSE_ID = 1;
@@ -276,6 +284,21 @@ public final class WorldModel {  // make init vars private and then make getters
         }
 
         return properties.length == DUDE_NUM_PROPERTIES;
+    }
+    private boolean parseCharizard(String[] properties, ImageStore imageStore)
+    {
+        if (properties.length == CHARIZARD_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[CHARIZARD_COL]),
+                    Integer.parseInt(properties[CHARIZARD_ROW]));
+            Entity entity = Factory.createCharizard(properties[CHARIZARD_ID],
+                    pt,
+                    Integer.parseInt(properties[CHARIZARD_ACTION_PERIOD]),
+                    Integer.parseInt(properties[CHARIZARD_ANIMATION_PERIOD]),
+                    imageStore.getImageList(CHARIZARD_KEY));
+            this.tryAddEntity(entity);
+        }
+
+        return properties.length == CHARIZARD_NUM_PROPERTIES;
     }
 
     private boolean parseFairy(String[] properties, ImageStore imageStore)

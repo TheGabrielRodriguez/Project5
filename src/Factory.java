@@ -96,4 +96,13 @@ public class Factory {
         return new DudeFull(id, position, images, animationPeriod,
                 actionPeriod, resourceLimit);
     }
+    public static Entity createCharizard(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images) {
+        return new Charizard(id, position, images, animationPeriod,
+                actionPeriod);
+    }
 }
