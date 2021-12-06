@@ -236,8 +236,6 @@ public final class WorldModel {  // make init vars private and then make getters
                     return this.parseTree(properties, imageStore);
                 case SAPLING_KEY:
                     return this.parseSapling(properties, imageStore);
-                case CHARIZARD_KEY:
-                    return this.parseCharizard(properties, imageStore);
             }
         }
 
