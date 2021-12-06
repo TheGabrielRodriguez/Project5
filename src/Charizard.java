@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class Charizard  extends RobustEntity
+public class Charizard extends RobustEntity
 {
 
     public PathingStrategy path = new AStarPathingStrategy();
