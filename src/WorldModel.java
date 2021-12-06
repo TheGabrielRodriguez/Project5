@@ -287,7 +287,7 @@ public final class WorldModel {  // make init vars private and then make getters
 
         return properties.length == DUDE_NUM_PROPERTIES;
     }
-    private boolean parseCharizard(String[] properties, ImageStore imageStore)
+    public boolean parseCharizard(String[] properties, ImageStore imageStore)
     {
         if (properties.length == CHARIZARD_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[CHARIZARD_COL]),

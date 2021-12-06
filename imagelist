@@ -38,11 +38,11 @@ sapling images/sapling1.png
 sapling images/sapling2.png
 sapling images/sapling3.png
 sapling images/sapling4.png
-charizard images/char1.png
-charizard images/char2.png
-charizard images/char3.png
-charizard images/char4.png
-charizard images/char5.png
+charizard images/char1.bmp 255 255 255 0
+charizard images/char2.bmp 255 255 255 0
+charizard images/char3.bmp 255 255 255 0
+charizard images/char4.bmp 255 255 255 0
+charizard images/char5.bmp 255 255 255 0
 Gyrados images/Gyrados1.png
 Gyrados images/Gyrados2.png
 Gyrados images/Gyrados3.png

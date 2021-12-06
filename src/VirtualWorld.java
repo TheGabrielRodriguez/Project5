@@ -95,9 +95,10 @@ public final class VirtualWorld extends PApplet
             else
                 System.out.println(entity.getId() + ": " + entity.getClass());
         } else{
-            String line = "Char Charizard_"+pressed.getX()+"_"+pressed.getY()+" "+pressed.getX()+" "+pressed.getY()+" 4 784 100";
+            String line = "charizard charizard_"+pressed.getX()+"_"+pressed.getY()+" "+pressed.getX()+" "+pressed.getY()+" 784 100";
             String[] properties = line.split("\\s");
-            world.parseDude(properties, imageStore);
+            world.parseCharizard(properties, imageStore);
+            scheduleActions(world, scheduler, imageStore);
         }
 
     }
