@@ -19,6 +19,7 @@ public abstract class AnimateEntity extends Entity{
         scheduler.scheduleEvent(this,
                 Factory.createAnimationAction(this, 0),
                 this.getAnimationPeriod());
+                System.out.println(this.getAnimationPeriod());
     }
 }
 
