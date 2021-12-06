@@ -271,7 +271,7 @@ public final class WorldModel {  // make init vars private and then make getters
 
 
     }
-    private boolean parseDude(String[] properties, ImageStore imageStore)
+    public boolean parseDude(String[] properties, ImageStore imageStore)
     {
         if (properties.length == DUDE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[DUDE_COL]),
