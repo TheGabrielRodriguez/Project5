@@ -22,12 +22,17 @@ public class Charizard extends RobustEntity
         Optional<Entity> target =
                 findNearest(world, this.getPosition(), new ArrayList<>(Arrays.asList(Tree.class, Sapling.class)));
 
-        if (!target.isPresent() || !this.moveTo(world, target.get(), scheduler))
-        {
+        if (!target.isPresent() || !this.moveTo(world, target.get(), scheduler)) {
             scheduler.scheduleEvent(this,
                     Factory.createActivityAction(this, world, imageStore),
                     this.getActionPeriod());
         }
+        else{
+            scheduler.scheduleEvent(this,
+                    Factory.createActivityAction(this, world, imageStore),
+                    this.getActionPeriod());
+        }
+
     }
 
     public Point nextPosition( //entity  //check creates and order of variables in the parameters, then check constructors
@@ -62,5 +67,6 @@ public class Charizard extends RobustEntity
             return false;
         }
     }
+
 
 }
