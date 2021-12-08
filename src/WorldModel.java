@@ -216,7 +216,7 @@ public final class WorldModel {  // make init vars private and then make getters
     }
 
     public void tryAddEntity(Entity entity) {
-        if (entity.getClass() == Magikarp.class){
+        if (entity.getClass() == Magikarp.class||entity.getClass() == Gyrados.class){
             addEntity(entity);
         } else if (this.isOccupied(entity.getPosition())) {
             // arguably the wrong type of exception, but we are not
