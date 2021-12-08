@@ -114,7 +114,7 @@ public class Factory {
             int health,
             List<PImage> images)
     {
-        return new Tree(id, position, images,
+        return new PokeTree(id, position, images,
                 animationPeriod, actionPeriod, health);
     }
 }
