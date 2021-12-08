@@ -71,5 +71,4 @@ public class Charizard extends CreateEntity
         }
     }
 
-
 }
