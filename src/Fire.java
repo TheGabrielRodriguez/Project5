@@ -6,11 +6,15 @@ import java.util.*;
  * An entity that exists in the world. See EntityKind for the
  * different kinds of entities that exist.
  */
-public class Fire extends AnimateEntity
+public class Fire extends Background
 {
 
-    public Fire(String id, Point position, List<PImage> images, int animationPeriod) {
-        super(id, position, images,animationPeriod);
+    public Fire(String id, List<PImage> images) {
+        super(id, images);
     }
 
+    public PImage getCurrentImage() { // get rid of static and get rid of parameter
+        // put it into both entity and background
+        return super.getCurrentImage();
+    }
 }

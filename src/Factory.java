@@ -125,4 +125,5 @@ public class Factory {
             List<PImage> images) {
         return new Magikarp(id, position, images, animationPeriod);
     }
+
 }
