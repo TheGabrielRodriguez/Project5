@@ -97,6 +97,7 @@ public final class VirtualWorld extends PApplet
                     String line = "Tree Tree_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + pressed.getY() + " 784 100";
                     String[] properties = line.split("\\s");
                     world.parsePokeTree(properties, imageStore);
+                    scheduleActions(world, scheduler, imageStore);
                 }
 
             else{ System.out.println(entity.getId() + ": " + entity.getClass());}

@@ -10,7 +10,7 @@ public final class Tree extends Green
 {
 
     private static final String STUMP_KEY = "stump";
-    private static final String POKETREE_KEY = "poketree";
+    private static final String POKETREE_KEY = "Tree";
 
     public Tree(String id, Point position, List<PImage> images, int animationPeriod, int actionPeriod, int health) {
         super(id, position, images, animationPeriod, actionPeriod, health);
