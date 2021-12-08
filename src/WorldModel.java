@@ -74,11 +74,12 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int OBSTACLE_ANIMATION_PERIOD = 4;
 
     private static final String MAGIKARP_KEY = "mag";
-    private static final int MAGIKARP_NUM_PROPERTIES = 5;
+    private static final int MAGIKARP_NUM_PROPERTIES = 6;
     private static final int MAGIKARP_ID = 1;
     private static final int MAGIKARP_COL = 2;
     private static final int MAGIKARP_ROW = 3;
-    private static final int MAGIKARP_ANIMATION_PERIOD = 4;
+    private static final int MAGIKARP_ACTION_PERIOD = 4;
+    private static final int MAGIKARP_ANIMATION_PERIOD = 5;
 
     private static final String DUDE_KEY = "dude";
     private static final int DUDE_NUM_PROPERTIES = 7;
@@ -212,13 +213,15 @@ public final class WorldModel {  // make init vars private and then make getters
     }
 
     public void tryAddEntity(Entity entity) {
-        if (this.isOccupied(entity.getPosition())) {
+        if (entity.getClass() == Magikarp.class){
+            addEntity(entity);
+        } else if (this.isOccupied(entity.getPosition())) {
             // arguably the wrong type of exception, but we are not
             // defining our own exceptions yet
             throw new IllegalArgumentException("position occupied");
+        }else {
+            addEntity(entity);
         }
-
-        addEntity(entity);
     }
 
     public void addEntity(Entity entity) { //worldmodel holds grid of world and where everything is located
@@ -336,21 +339,7 @@ public final class WorldModel {  // make init vars private and then make getters
 
         return properties.length == DUDE_NUM_PROPERTIES;
     }
-    public boolean parseCharizard(String[] properties, ImageStore imageStore)
-    {
-        if (properties.length == CHARIZARD_NUM_PROPERTIES) {
-            Point pt = new Point(Integer.parseInt(properties[CHARIZARD_COL]),
-                    Integer.parseInt(properties[CHARIZARD_ROW]));
-            Entity entity = Factory.createCharizard(properties[CHARIZARD_ID],
-                    pt,
-                    Integer.parseInt(properties[CHARIZARD_ACTION_PERIOD]),
-                    Integer.parseInt(properties[CHARIZARD_ANIMATION_PERIOD]),
-                    imageStore.getImageList(CHARIZARD_KEY));
-            this.tryAddEntity(entity);
-        }
 
-        return properties.length == CHARIZARD_NUM_PROPERTIES;
-    }
 
     private boolean parseFairy(String[] properties, ImageStore imageStore)
     {
@@ -400,12 +389,29 @@ public final class WorldModel {  // make init vars private and then make getters
         return properties.length == OBSTACLE_NUM_PROPERTIES;
     }
 
+    public boolean parseCharizard(String[] properties, ImageStore imageStore)
+    {
+        if (properties.length == CHARIZARD_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[CHARIZARD_COL]),
+                    Integer.parseInt(properties[CHARIZARD_ROW]));
+            Entity entity = Factory.createCharizard(properties[CHARIZARD_ID],
+                    pt,
+                    Integer.parseInt(properties[CHARIZARD_ACTION_PERIOD]),
+                    Integer.parseInt(properties[CHARIZARD_ANIMATION_PERIOD]),
+                    imageStore.getImageList(CHARIZARD_KEY));
+            this.tryAddEntity(entity);
+        }
+
+        return properties.length == CHARIZARD_NUM_PROPERTIES;
+    }
+
     public boolean parseMag(String[] properties, ImageStore imageStore)
     {
         if (properties.length == MAGIKARP_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[MAGIKARP_COL]),
                     Integer.parseInt(properties[MAGIKARP_ROW]));
             Entity entity = Factory.createMagikarp(properties[MAGIKARP_ID], pt,
+                    Integer.parseInt(properties[MAGIKARP_ACTION_PERIOD]),
                     Integer.parseInt(properties[MAGIKARP_ANIMATION_PERIOD]),
                     imageStore.getImageList(MAGIKARP_KEY));
             this.tryAddEntity(entity);

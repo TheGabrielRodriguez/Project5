@@ -88,7 +88,7 @@ public final class VirtualWorld extends PApplet
         if (entityOptional.isPresent())
         {
             Entity entity = entityOptional.get();
-
+//            System.out.println(entity.getId() + ": " + entity.getClass());
             if  (entity instanceof Green){
                 if(entity.getClass() == Tree.class){
                     ((Tree) entity).transformToPokeTree(world, scheduler, imageStore);
@@ -101,8 +101,9 @@ public final class VirtualWorld extends PApplet
                 System.out.println(entity.getId() + ": " + entity.getClass());
             }
 
+
             if (entity.getClass() == Obstacle.class) {
-                String line = "mag mag_" + entity.getId() + ": " + entity.getClass();
+                String line = "mag mag_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + pressed.getY() + " 784 100";
                 String[] properties = line.split("\\s");
                 world.parseMag(properties, imageStore);
             }
