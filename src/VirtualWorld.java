@@ -126,8 +126,46 @@ public final class VirtualWorld extends PApplet
             String[] properties = line.split("\\s");
             world.parseCharizard(properties, imageStore, scheduler);
 
+            //top left
+            String tl = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() - 1) + " " + (pressed.getY() - 1);
+            String[] tlp = tl.split("\\s");
+            world.parseFire(tlp, imageStore);
+
+            //top
+            String t = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + (pressed.getY() - 1);
+            String[] tp = t.split("\\s");
+            world.parseFire(tp, imageStore);
+
+            //top right
+            String tr = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() + 1) + " " + (pressed.getY() - 1);
+            String[] trp = tr.split("\\s");
+            world.parseFire(trp, imageStore);
+
+            //left
+            String l = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() - 1) + " " + pressed.getY();
+            String[] lp = l.split("\\s");
+            world.parseFire(lp, imageStore);
+
+            //right
+            String r = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() + 1) + " " + pressed.getY();
+            String[] rp = r.split("\\s");
+            world.parseFire(rp, imageStore);
+
+            //bottom left
+            String bl = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() - 1) + " " + (pressed.getY() + 1);
+            String[] blp = bl.split("\\s");
+            world.parseFire(blp, imageStore);
+
+            //bottom
+            String b = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + (pressed.getY() + 1);
+            String[] bp = b.split("\\s");
+            world.parseFire(bp, imageStore);
+
+            //bottom right
+            String br = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() + 1) + " " + (pressed.getY() + 1);
+            String[] brp = br.split("\\s");
+            world.parseFire(brp, imageStore);
         }
-//        scheduleActions(world, scheduler, imageStore);
     }
 
     private Point mouseToPoint(int x, int y)
