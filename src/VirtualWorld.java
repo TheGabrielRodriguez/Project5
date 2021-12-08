@@ -176,6 +176,7 @@ public final class VirtualWorld extends PApplet
             if (entity instanceof AnimateEntity){
                 ((AnimateEntity)entity).scheduleActions(scheduler, world, imageStore);
                 }
+
             }
         }
 

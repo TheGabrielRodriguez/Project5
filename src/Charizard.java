@@ -22,7 +22,7 @@ public class Charizard extends RobustEntity
         Optional<Entity> target =
                 findNearest(world, this.getPosition(), new ArrayList<>(Arrays.asList(Tree.class, Sapling.class)));
 
-        if (!target.isPresent() || !this.moveTo(world, target.get(), scheduler)) {
+        if (target.isEmpty() || !this.moveTo(world, target.get(), scheduler)) {
             scheduler.scheduleEvent(this,
                     Factory.createActivityAction(this, world, imageStore),
                     this.getActionPeriod());

@@ -303,6 +303,23 @@ public final class WorldModel {  // make init vars private and then make getters
         return properties.length == CHARIZARD_NUM_PROPERTIES;
     }
 
+    public boolean parsePokeTree(String[] properties, ImageStore imageStore)
+    {
+        if (properties.length == TREE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[TREE_COL]),
+                    Integer.parseInt(properties[TREE_ROW]));
+            Entity entity = Factory.createTree(properties[TREE_ID],
+                    pt,
+                    Integer.parseInt(properties[TREE_ACTION_PERIOD]),
+                    Integer.parseInt(properties[TREE_ANIMATION_PERIOD]),
+                    Integer.parseInt(properties[TREE_HEALTH]),
+                    imageStore.getImageList(TREE_KEY));
+            this.tryAddEntity(entity);
+        }
+
+        return properties.length == TREE_NUM_PROPERTIES;
+    }
+
     private boolean parseFairy(String[] properties, ImageStore imageStore)
     {
         if (properties.length == FAIRY_NUM_PROPERTIES) {
