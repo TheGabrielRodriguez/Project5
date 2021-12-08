@@ -25,7 +25,7 @@ public final class DudeNotFull extends RobustEntity
             EventScheduler scheduler)
     {
         Optional<Entity> target =
-                findNearest(world, this.getPosition(), new ArrayList<>(Arrays.asList(Tree.class, Sapling.class, PokeTree.class)));
+                findNearest(world, this.getPosition(), new ArrayList<>(Arrays.asList(Tree.class, Sapling.class)));
 
         if (!target.isPresent() || !this.moveTo(world,
                 target.get(),

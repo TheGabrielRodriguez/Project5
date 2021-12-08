@@ -383,6 +383,7 @@ public final class WorldModel {  // make init vars private and then make getters
                     Integer.parseInt(properties[POKETREE_HEALTH]),
                     imageStore.getImageList(POKETREE_KEY));
             this.tryAddEntity(entity);
+            ((PokeTree) entity).executeActivity(this, imageStore, scheduler);
             scheduler.scheduleEvent(entity,
                     Factory.createAnimationAction(entity, 0),
                     ((AnimateEntity) entity).getAnimationPeriod());
