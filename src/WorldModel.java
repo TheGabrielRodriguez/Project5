@@ -105,7 +105,7 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int TREE_ACTION_PERIOD = 5;
     private static final int TREE_HEALTH = 6;
 
-    private static final String POKETREE_KEY = "poketree";
+    private static final String POKETREE_KEY = "Tree";
     private static final int POKETREE_NUM_PROPERTIES = 7;
     private static final int POKETREE_ID = 1;
     private static final int POKETREE_COL = 2;
