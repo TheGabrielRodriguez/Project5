@@ -93,9 +93,7 @@ public final class VirtualWorld extends PApplet
 
                 if(entity.getClass() == Tree.class){
                     ((Tree) entity).transformToPokeTree(world, scheduler, imageStore);
-                    String line = "Tree Tree_" + entity.getId() + ": " + entity.getClass() + ((Green) entity).getHealth();
-                    String[] properties = line.split("\\s");
-                    world.parsePokeTree(properties, imageStore);
+
                 } else {
                     System.out.println(entity.getId() + ": " + entity.getClass() + " : " + ((Green) entity).getHealth());
                 }
@@ -114,6 +112,8 @@ public final class VirtualWorld extends PApplet
             String line = "charizard charizard_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + pressed.getY() + " 784 100";
             String[] properties = line.split("\\s");
             world.parseCharizard(properties, imageStore);
+
+
         }
         scheduleActions(world, scheduler, imageStore);
     }
