@@ -127,4 +127,13 @@ public class Factory {
         return new Magikarp(id, position, images, animationPeriod,
                 actionPeriod);
     }
+    public static Entity createGyrados(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images) {
+        return new Gyrados(id, position, images, animationPeriod,
+                actionPeriod);
+    }
 }

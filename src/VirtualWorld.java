@@ -106,7 +106,10 @@ public final class VirtualWorld extends PApplet
                 String line = "mag mag_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + pressed.getY() + " 784 100";
                 String[] properties = line.split("\\s");
                 world.parseMag(properties, imageStore);
+
             }
+            if (entity.getClass() == Magikarp.class){
+                ((Magikarp) entity).transformToGyrados(world,scheduler,imageStore);}
         }
 
         if (entityOptional.isEmpty()) {

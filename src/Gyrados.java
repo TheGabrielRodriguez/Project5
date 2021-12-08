@@ -5,12 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class Magikarp extends CreateEntity{
-    private static final String GYRADOS_KEY = "Gyrados";
+public class Gyrados extends CreateEntity{
 
     public PathingStrategy path = new AStarPathingStrategy();
 
-    public Magikarp(String id, Point position, List<PImage> images, int animationPeriod, int actionPeriod) {
+    public Gyrados(String id, Point position, List<PImage> images, int animationPeriod, int actionPeriod) {
         super(id, position, images, animationPeriod, actionPeriod);
     }
     public void executeActivity(
@@ -66,23 +65,5 @@ public class Magikarp extends CreateEntity{
             return false;
         }
     }
-
-    public void transformToGyrados(
-            WorldModel world,
-            EventScheduler scheduler,
-            ImageStore imageStore)
-    {
-
-        Entity poketree = Factory.createGyrados(this.getId(),
-                this.getPosition(),
-                this.getActionPeriod(),
-                this.getAnimationPeriod(),
-                imageStore.getImageList(GYRADOS_KEY));
-
-        world.removeEntity(this);
-        scheduler.unscheduleAllEvents(this);
-
-        world.addEntity(poketree);
-
-    }
 }
+
