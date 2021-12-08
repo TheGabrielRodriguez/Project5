@@ -1,25 +1,16 @@
-import java.util.List;
-
 import processing.core.PImage;
 
+import java.util.*;
+
 /**
- * Represents a background for the 2D world.
+ * An entity that exists in the world. See EntityKind for the
+ * different kinds of entities that exist.
  */
-public final class Fire
+public class Fire extends AnimateEntity
 {
-    private final String id;
-    private final List<PImage> images;
-    private int imageIndex;  //never called in background and initialized in entity, make private and getter or leave public?
 
-    public Fire(String id, List<PImage> images) {
-        this.id = id;
-        this.images = images;
-    }
-
-    public PImage getCurrentImage() { // get rid of static and get rid of parameter
-        // put it into both entity and background
-        return images.get(this.imageIndex);
-
+    public Fire(String id, Point position, List<PImage> images, int animationPeriod) {
+        super(id, position, images,animationPeriod);
     }
 
 }
