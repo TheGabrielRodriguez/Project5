@@ -39,7 +39,10 @@ public class Charizard extends CreateEntity
                                WorldModel world, Point destPos)
     {
         List<Point> subsequentPath;
-        subsequentPath = path.computePath(this.getPosition(), destPos, point -> world.withinBounds(point) && (!world.isOccupied(point) ||(world.getOccupancyCell(point).getClass() == Stump.class ||(world.getOccupancyCell(point).getClass() == Fire.class))), (p1,p2) -> p1.adjacent(p2), PathingStrategy.CARDINAL_NEIGHBORS);
+        subsequentPath = path.computePath(this.getPosition(), destPos,
+                point -> world.withinBounds(point) && (!world.isOccupied(point) ||(world.getOccupancyCell(point).getClass() == Stump.class)),
+                (p1,p2) -> p1.adjacent(p2),
+                PathingStrategy.CARDINAL_NEIGHBORS);
         if (subsequentPath.size() == 0)  //if no path the computePath call will return 0 and the size of the List of Points will be zero; if so return current position
             return getPosition();
         return subsequentPath.get(0);

@@ -136,4 +136,5 @@ public class Factory {
         return new Gyrados(id, position, images, animationPeriod,
                 actionPeriod);
     }
+
 }
