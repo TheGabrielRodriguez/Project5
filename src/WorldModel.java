@@ -63,6 +63,13 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int OBSTACLE_ROW = 3;
     private static final int OBSTACLE_ANIMATION_PERIOD = 4;
 
+    private static final String MAGIKARP_KEY = "mag";
+    private static final int MAGIKARP_NUM_PROPERTIES = 5;
+    private static final int MAGIKARP_ID = 1;
+    private static final int MAGIKARP_COL = 2;
+    private static final int MAGIKARP_ROW = 3;
+    private static final int MAGIKARP_ANIMATION_PERIOD = 4;
+
     private static final String DUDE_KEY = "dude";
     private static final int DUDE_NUM_PROPERTIES = 7;
     private static final int DUDE_ID = 1;
@@ -245,8 +252,6 @@ public final class WorldModel {  // make init vars private and then make getters
                     return this.parseTree(properties, imageStore);
                 case SAPLING_KEY:
                     return this.parseSapling(properties, imageStore);
-                case POKETREE_KEY:
-                    return this.parsePokeTree(properties, imageStore);
             }
         }
 
@@ -375,6 +380,20 @@ public final class WorldModel {  // make init vars private and then make getters
         }
 
         return properties.length == OBSTACLE_NUM_PROPERTIES;
+    }
+
+    public boolean parseMag(String[] properties, ImageStore imageStore)
+    {
+        if (properties.length == MAGIKARP_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[MAGIKARP_COL]),
+                    Integer.parseInt(properties[MAGIKARP_ROW]));
+            Entity entity = Factory.createMagikarp(properties[MAGIKARP_ID], pt,
+                    Integer.parseInt(properties[MAGIKARP_ANIMATION_PERIOD]),
+                    imageStore.getImageList(MAGIKARP_KEY));
+            this.tryAddEntity(entity);
+        }
+
+        return properties.length == MAGIKARP_NUM_PROPERTIES;
     }
 
     private boolean parseHouse(String[] properties, ImageStore imageStore)

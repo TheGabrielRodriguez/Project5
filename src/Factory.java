@@ -117,4 +117,12 @@ public class Factory {
         return new PokeTree(id, position, images,
                 animationPeriod, actionPeriod, health);
     }
+
+    public static Entity createMagikarp(
+            String id,
+            Point position,
+            int animationPeriod,
+            List<PImage> images) {
+        return new Magikarp(id, position, images, animationPeriod);
+    }
 }
