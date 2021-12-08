@@ -105,6 +105,15 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int TREE_ACTION_PERIOD = 5;
     private static final int TREE_HEALTH = 6;
 
+    private static final String POKETREE_KEY = "poketree";
+    private static final int POKETREE_NUM_PROPERTIES = 7;
+    private static final int POKETREE_ID = 1;
+    private static final int POKETREE_COL = 2;
+    private static final int POKETREE_ROW = 3;
+    private static final int POKETREE_ANIMATION_PERIOD = 4;
+    private static final int POKETREE_ACTION_PERIOD = 5;
+    private static final int POKETREE_HEALTH = 6;
+
 
 
 
@@ -303,19 +312,19 @@ public final class WorldModel {  // make init vars private and then make getters
 
     public boolean parsePokeTree(String[] properties, ImageStore imageStore)
     {
-        if (properties.length == TREE_NUM_PROPERTIES) {
-            Point pt = new Point(Integer.parseInt(properties[TREE_COL]),
-                    Integer.parseInt(properties[TREE_ROW]));
-            Entity entity = Factory.createTree(properties[TREE_ID],
+        if (properties.length == POKETREE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[POKETREE_COL]),
+                    Integer.parseInt(properties[POKETREE_ROW]));
+            Entity entity = Factory.createPokeTree(properties[POKETREE_ID],
                     pt,
-                    Integer.parseInt(properties[TREE_ACTION_PERIOD]),
-                    Integer.parseInt(properties[TREE_ANIMATION_PERIOD]),
-                    Integer.parseInt(properties[TREE_HEALTH]),
-                    imageStore.getImageList(TREE_KEY));
+                    Integer.parseInt(properties[POKETREE_ACTION_PERIOD]),
+                    Integer.parseInt(properties[POKETREE_ANIMATION_PERIOD]),
+                    Integer.parseInt(properties[POKETREE_HEALTH]),
+                    imageStore.getImageList(POKETREE_KEY));
             this.tryAddEntity(entity);
         }
 
-        return properties.length == TREE_NUM_PROPERTIES;
+        return properties.length == POKETREE_NUM_PROPERTIES;
     }
 
     private boolean parseFairy(String[] properties, ImageStore imageStore)
