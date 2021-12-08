@@ -83,6 +83,9 @@ public class Magikarp extends CreateEntity{
         scheduler.unscheduleAllEvents(this);
 
         world.addEntity(poketree);
+        scheduler.scheduleEvent(this,
+                Factory.createAnimationAction(this, 0),
+                this.getAnimationPeriod());
 
     }
 }

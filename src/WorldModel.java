@@ -397,7 +397,7 @@ public final class WorldModel {  // make init vars private and then make getters
         return properties.length == OBSTACLE_NUM_PROPERTIES;
     }
 
-    public boolean parseCharizard(String[] properties, ImageStore imageStore)
+    public boolean parseCharizard(String[] properties, ImageStore imageStore, EventScheduler scheduler)
     {
         if (properties.length == CHARIZARD_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[CHARIZARD_COL]),
@@ -408,12 +408,16 @@ public final class WorldModel {  // make init vars private and then make getters
                     Integer.parseInt(properties[CHARIZARD_ANIMATION_PERIOD]),
                     imageStore.getImageList(CHARIZARD_KEY));
             this.tryAddEntity(entity);
+            ((Charizard) entity).executeActivity(this, imageStore, scheduler);
+            scheduler.scheduleEvent(entity,
+                    Factory.createAnimationAction(entity, 0),
+                    ((AnimateEntity) entity).getAnimationPeriod());
         }
 
         return properties.length == CHARIZARD_NUM_PROPERTIES;
     }
 
-    public boolean parseMag(String[] properties, ImageStore imageStore)
+    public boolean parseMag(String[] properties, ImageStore imageStore, EventScheduler scheduler)
     {
         if (properties.length == MAGIKARP_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[MAGIKARP_COL]),
@@ -423,12 +427,15 @@ public final class WorldModel {  // make init vars private and then make getters
                     Integer.parseInt(properties[MAGIKARP_ANIMATION_PERIOD]),
                     imageStore.getImageList(MAGIKARP_KEY));
             this.tryAddEntity(entity);
+            scheduler.scheduleEvent(entity,
+                    Factory.createAnimationAction(entity, 0),
+                    ((AnimateEntity) entity).getAnimationPeriod());
         }
 
         return properties.length == MAGIKARP_NUM_PROPERTIES;
     }
 
-    public boolean parseGyrados(String[] properties, ImageStore imageStore)
+    public boolean parseGyrados(String[] properties, ImageStore imageStore, EventScheduler scheduler)
     {
         if (properties.length == GYRADOS_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[GYRADOS_COL]),
@@ -438,6 +445,9 @@ public final class WorldModel {  // make init vars private and then make getters
                     Integer.parseInt(properties[GYRADOS_ANIMATION_PERIOD]),
                     imageStore.getImageList(GYRADOS_KEY));
             this.tryAddEntity(entity);
+            scheduler.scheduleEvent(entity,
+                    Factory.createAnimationAction(entity, 0),
+                    ((AnimateEntity) entity).getAnimationPeriod());
         }
 
         return properties.length == MAGIKARP_NUM_PROPERTIES;

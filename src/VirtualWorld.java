@@ -105,19 +105,25 @@ public final class VirtualWorld extends PApplet
             if (entity.getClass() == Obstacle.class) {
                 String line = "mag mag_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + pressed.getY() + " 784 100";
                 String[] properties = line.split("\\s");
-                world.parseMag(properties, imageStore);
+                world.parseMag(properties, imageStore, scheduler);
 
             }
             if (entity.getClass() == Magikarp.class){
-                ((Magikarp) entity).transformToGyrados(world,scheduler,imageStore);}
+                world.removeEntity(entity);
+                scheduler.unscheduleAllEvents(entity);
+                String line = "Gyrados gyrados_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + pressed.getY() + " 784 100";
+                String[] properties = line.split("\\s");
+                world.parseGyrados(properties, imageStore, scheduler);
+            }
         }
 
         if (entityOptional.isEmpty()) {
             String line = "charizard charizard_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + pressed.getY() + " 784 100";
             String[] properties = line.split("\\s");
-            world.parseCharizard(properties, imageStore);
+            world.parseCharizard(properties, imageStore, scheduler);
+
         }
-        scheduleActions(world, scheduler, imageStore);
+//        scheduleActions(world, scheduler, imageStore);
     }
 
     private Point mouseToPoint(int x, int y)
