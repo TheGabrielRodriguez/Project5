@@ -81,6 +81,14 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int MAGIKARP_ACTION_PERIOD = 4;
     private static final int MAGIKARP_ANIMATION_PERIOD = 5;
 
+    private static final String GYRADOS_KEY = "Gyrados";
+    private static final int GYRADOS_NUM_PROPERTIES = 6;
+    private static final int GYRADOS_ID = 1;
+    private static final int GYRADOS_COL = 2;
+    private static final int GYRADOS_ROW = 3;
+    private static final int GYRADOS_ACTION_PERIOD = 4;
+    private static final int GYRADOS_ANIMATION_PERIOD = 5;
+
     private static final String DUDE_KEY = "dude";
     private static final int DUDE_NUM_PROPERTIES = 7;
     private static final int DUDE_ID = 1;
@@ -414,6 +422,21 @@ public final class WorldModel {  // make init vars private and then make getters
                     Integer.parseInt(properties[MAGIKARP_ACTION_PERIOD]),
                     Integer.parseInt(properties[MAGIKARP_ANIMATION_PERIOD]),
                     imageStore.getImageList(MAGIKARP_KEY));
+            this.tryAddEntity(entity);
+        }
+
+        return properties.length == MAGIKARP_NUM_PROPERTIES;
+    }
+
+    public boolean parseGyrados(String[] properties, ImageStore imageStore)
+    {
+        if (properties.length == GYRADOS_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[GYRADOS_COL]),
+                    Integer.parseInt(properties[GYRADOS_ROW]));
+            Entity entity = Factory.createGyrados(properties[GYRADOS_ID], pt,
+                    Integer.parseInt(properties[GYRADOS_ACTION_PERIOD]),
+                    Integer.parseInt(properties[GYRADOS_ANIMATION_PERIOD]),
+                    imageStore.getImageList(GYRADOS_KEY));
             this.tryAddEntity(entity);
         }
 
