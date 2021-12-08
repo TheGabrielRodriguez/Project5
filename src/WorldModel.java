@@ -11,6 +11,8 @@ public final class WorldModel {  // make init vars private and then make getters
     private final int numRows;
     private final int numCols;
     private final Background background[][];
+
+
     private final Entity occupancy[][];
     private final Set<Entity> entities;
 
@@ -55,6 +57,12 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int BGND_ID = 1;
     private static final int BGND_COL = 2;
     private static final int BGND_ROW = 3;
+
+    private static final String FIRE_KEY = "fire";
+    private static final int FIRE_NUM_PROPERTIES = 4;
+    private static final int FIRE_ID = 1;
+    private static final int FIRE_COL = 2;
+    private static final int FIRE_ROW = 3;
 
     private static final String OBSTACLE_KEY = "obstacle";
     private static final int OBSTACLE_NUM_PROPERTIES = 5;
@@ -153,6 +161,17 @@ public final class WorldModel {  // make init vars private and then make getters
         }
     }
 
+//    private void setFireCell(Point pos, Fire background) {
+//        this.background[pos.getY()][pos.getX()] = background;
+//    }
+//
+//    private void setFire(Point pos, Fire background) {
+//        if (this.withinBounds(pos)) {
+//            this.setFireCell(pos, background);
+//        }
+//    }
+
+
     private Background getBackgroundCell(Point pos) { //world
         return this.background[pos.getY()][pos.getX()];
     }
@@ -240,6 +259,8 @@ public final class WorldModel {  // make init vars private and then make getters
             switch (properties[PROPERTY_KEY]) {
                 case BGND_KEY:
                     return this.parseBackground(properties, imageStore);
+                case FIRE_KEY:
+                    return this.parseFire(properties, imageStore);
                 case DUDE_KEY:
                     return this.parseDude(properties, imageStore);
                 case OBSTACLE_KEY:
@@ -268,6 +289,17 @@ public final class WorldModel {  // make init vars private and then make getters
         }
 
         return properties.length == BGND_NUM_PROPERTIES;
+    }
+    public boolean parseFire(String[] properties, ImageStore imageStore) {
+        if (properties.length == FIRE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[FIRE_COL]),
+                    Integer.parseInt(properties[FIRE_ROW]));
+            String id = properties[FIRE_ID];
+            this.setBackground(pt,
+                    new Background(id, imageStore.getImageList(id)));
+        }
+
+        return properties.length == FIRE_NUM_PROPERTIES;
     }
 
     private boolean parseSapling(String[] properties, ImageStore imageStore) {
