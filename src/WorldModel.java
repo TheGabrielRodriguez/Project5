@@ -131,14 +131,14 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int TREE_ACTION_PERIOD = 5;
     private static final int TREE_HEALTH = 6;
 
-//    private static final String POKETREE_KEY = "Tree";
-//    private static final int POKETREE_NUM_PROPERTIES = 7;
-//    private static final int POKETREE_ID = 1;
-//    private static final int POKETREE_COL = 2;
-//    private static final int POKETREE_ROW = 3;
-//    private static final int POKETREE_ANIMATION_PERIOD = 4;
-//    private static final int POKETREE_ACTION_PERIOD = 5;
-//    private static final int POKETREE_HEALTH = 6;
+    private static final String POKETREE_KEY = "Tree";
+    private static final int POKETREE_NUM_PROPERTIES = 7;
+    private static final int POKETREE_ID = 1;
+    private static final int POKETREE_COL = 2;
+    private static final int POKETREE_ROW = 3;
+    private static final int POKETREE_ANIMATION_PERIOD = 4;
+    private static final int POKETREE_ACTION_PERIOD = 5;
+    private static final int POKETREE_HEALTH = 6;
 
 
 
@@ -286,6 +286,7 @@ public final class WorldModel {  // make init vars private and then make getters
                     return this.parseTree(properties, imageStore);
                 case SAPLING_KEY:
                     return this.parseSapling(properties, imageStore);
+
             }
         }
 
@@ -381,6 +382,23 @@ public final class WorldModel {  // make init vars private and then make getters
         }
 
         return properties.length == TREE_NUM_PROPERTIES;
+    }
+    public boolean parsePokeTree(String[] properties, ImageStore imageStore,EventScheduler scheduler)
+    {
+        if (properties.length == POKETREE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[POKETREE_COL]),
+                    Integer.parseInt(properties[POKETREE_ROW]));
+            Entity entity = Factory.createPokeTree(properties[POKETREE_ID],
+                    pt,
+                    Integer.parseInt(properties[POKETREE_ACTION_PERIOD]),
+                    Integer.parseInt(properties[POKETREE_ANIMATION_PERIOD]),
+                    Integer.parseInt(properties[POKETREE_HEALTH]),
+                    imageStore.getImageList(POKETREE_KEY));
+            this.tryAddEntity(entity);
+            scheduler.scheduleEvent(entity,Factory.createAnimationAction(entity,0),((AnimateEntity)entity).getAnimationPeriod());
+        }
+
+        return properties.length == POKETREE_NUM_PROPERTIES;
     }
 
     private boolean parseObstacle(String[] properties, ImageStore imageStore)

@@ -91,7 +91,11 @@ public final class VirtualWorld extends PApplet
 //            System.out.println(entity.getId() + ": " + entity.getClass());
             if  (entity instanceof Green){
                 if(entity.getClass() == Tree.class){
-                    ((Tree) entity).transformToPokeTree(world, scheduler, imageStore);
+                    world.removeEntity(entity);
+                    scheduler.unscheduleAllEvents(entity);
+                    String line = "Tree Tree_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + pressed.getY() + " 784 100";
+                    String[] properties = line.split("\\s");
+                    world.parsePokeTree(properties, imageStore, scheduler);
                 } else {
                     System.out.println(entity.getId() + ": " + entity.getClass() + " : " + ((Green) entity).getHealth());
                 }
