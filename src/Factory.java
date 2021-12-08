@@ -105,4 +105,24 @@ public class Factory {
         return new Charizard(id, position, images, animationPeriod,
                 actionPeriod);
     }
+
+    public static Entity createPokeTree(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            int health,
+            List<PImage> images)
+    {
+        return new PokeTree(id, position, images,
+                animationPeriod, actionPeriod, health);
+    }
+
+    public static Entity createMagikarp(
+            String id,
+            Point position,
+            int animationPeriod,
+            List<PImage> images) {
+        return new Magikarp(id, position, images, animationPeriod);
+    }
 }

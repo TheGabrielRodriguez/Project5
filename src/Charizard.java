@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class Charizard extends RobustEntity
+public class Charizard extends CreateEntity
 {
 
     public PathingStrategy path = new AStarPathingStrategy();
@@ -20,9 +20,9 @@ public class Charizard extends RobustEntity
             EventScheduler scheduler)
     {
         Optional<Entity> target =
-                findNearest(world, this.getPosition(), new ArrayList<>(Arrays.asList(Tree.class, Sapling.class)));
+                findNearest(world, this.getPosition(), new ArrayList<>(Arrays.asList(Tree.class, Sapling.class, PokeTree.class)));
 
-        if (!target.isPresent() || !this.moveTo(world, target.get(), scheduler)) {
+        if (target.isEmpty() || !this.moveTo(world, target.get(), scheduler)) {
             scheduler.scheduleEvent(this,
                     Factory.createActivityAction(this, world, imageStore),
                     this.getActionPeriod());

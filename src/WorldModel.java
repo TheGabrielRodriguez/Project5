@@ -11,6 +11,8 @@ public final class WorldModel {  // make init vars private and then make getters
     private final int numRows;
     private final int numCols;
     private final Background background[][];
+
+
     private final Entity occupancy[][];
     private final Set<Entity> entities;
 
@@ -56,12 +58,25 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int BGND_COL = 2;
     private static final int BGND_ROW = 3;
 
+    private static final String FIRE_KEY = "fire";
+    private static final int FIRE_NUM_PROPERTIES = 4;
+    private static final int FIRE_ID = 1;
+    private static final int FIRE_COL = 2;
+    private static final int FIRE_ROW = 3;
+
     private static final String OBSTACLE_KEY = "obstacle";
     private static final int OBSTACLE_NUM_PROPERTIES = 5;
     private static final int OBSTACLE_ID = 1;
     private static final int OBSTACLE_COL = 2;
     private static final int OBSTACLE_ROW = 3;
     private static final int OBSTACLE_ANIMATION_PERIOD = 4;
+
+    private static final String MAGIKARP_KEY = "mag";
+    private static final int MAGIKARP_NUM_PROPERTIES = 5;
+    private static final int MAGIKARP_ID = 1;
+    private static final int MAGIKARP_COL = 2;
+    private static final int MAGIKARP_ROW = 3;
+    private static final int MAGIKARP_ANIMATION_PERIOD = 4;
 
     private static final String DUDE_KEY = "dude";
     private static final int DUDE_NUM_PROPERTIES = 7;
@@ -105,6 +120,15 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int TREE_ACTION_PERIOD = 5;
     private static final int TREE_HEALTH = 6;
 
+    private static final String POKETREE_KEY = "Tree";
+    private static final int POKETREE_NUM_PROPERTIES = 7;
+    private static final int POKETREE_ID = 1;
+    private static final int POKETREE_COL = 2;
+    private static final int POKETREE_ROW = 3;
+    private static final int POKETREE_ANIMATION_PERIOD = 4;
+    private static final int POKETREE_ACTION_PERIOD = 5;
+    private static final int POKETREE_HEALTH = 6;
+
 
 
 
@@ -136,6 +160,17 @@ public final class WorldModel {  // make init vars private and then make getters
             this.setBackgroundCell(pos, background);
         }
     }
+
+//    private void setFireCell(Point pos, Fire background) {
+//        this.background[pos.getY()][pos.getX()] = background;
+//    }
+//
+//    private void setFire(Point pos, Fire background) {
+//        if (this.withinBounds(pos)) {
+//            this.setFireCell(pos, background);
+//        }
+//    }
+
 
     private Background getBackgroundCell(Point pos) { //world
         return this.background[pos.getY()][pos.getX()];
@@ -224,6 +259,8 @@ public final class WorldModel {  // make init vars private and then make getters
             switch (properties[PROPERTY_KEY]) {
                 case BGND_KEY:
                     return this.parseBackground(properties, imageStore);
+                case FIRE_KEY:
+                    return this.parseFire(properties, imageStore);
                 case DUDE_KEY:
                     return this.parseDude(properties, imageStore);
                 case OBSTACLE_KEY:
@@ -252,6 +289,17 @@ public final class WorldModel {  // make init vars private and then make getters
         }
 
         return properties.length == BGND_NUM_PROPERTIES;
+    }
+    public boolean parseFire(String[] properties, ImageStore imageStore) {
+        if (properties.length == FIRE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[FIRE_COL]),
+                    Integer.parseInt(properties[FIRE_ROW]));
+            String id = properties[FIRE_ID];
+            this.setBackground(pt,
+                    new Background(id, imageStore.getImageList(id)));
+        }
+
+        return properties.length == FIRE_NUM_PROPERTIES;
     }
 
     private boolean parseSapling(String[] properties, ImageStore imageStore) {
@@ -301,6 +349,23 @@ public final class WorldModel {  // make init vars private and then make getters
         return properties.length == CHARIZARD_NUM_PROPERTIES;
     }
 
+    public boolean parsePokeTree(String[] properties, ImageStore imageStore)
+    {
+        if (properties.length == POKETREE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[POKETREE_COL]),
+                    Integer.parseInt(properties[POKETREE_ROW]));
+            Entity entity = Factory.createPokeTree(properties[POKETREE_ID],
+                    pt,
+                    Integer.parseInt(properties[POKETREE_ACTION_PERIOD]),
+                    Integer.parseInt(properties[POKETREE_ANIMATION_PERIOD]),
+                    Integer.parseInt(properties[POKETREE_HEALTH]),
+                    imageStore.getImageList(POKETREE_KEY));
+            this.tryAddEntity(entity);
+        }
+
+        return properties.length == POKETREE_NUM_PROPERTIES;
+    }
+
     private boolean parseFairy(String[] properties, ImageStore imageStore)
     {
         if (properties.length == FAIRY_NUM_PROPERTIES) {
@@ -347,6 +412,20 @@ public final class WorldModel {  // make init vars private and then make getters
         }
 
         return properties.length == OBSTACLE_NUM_PROPERTIES;
+    }
+
+    public boolean parseMag(String[] properties, ImageStore imageStore)
+    {
+        if (properties.length == MAGIKARP_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[MAGIKARP_COL]),
+                    Integer.parseInt(properties[MAGIKARP_ROW]));
+            Entity entity = Factory.createMagikarp(properties[MAGIKARP_ID], pt,
+                    Integer.parseInt(properties[MAGIKARP_ANIMATION_PERIOD]),
+                    imageStore.getImageList(MAGIKARP_KEY));
+            this.tryAddEntity(entity);
+        }
+
+        return properties.length == MAGIKARP_NUM_PROPERTIES;
     }
 
     private boolean parseHouse(String[] properties, ImageStore imageStore)

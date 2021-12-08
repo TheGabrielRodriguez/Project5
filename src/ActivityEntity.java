@@ -17,6 +17,6 @@ public abstract class ActivityEntity extends AnimateEntity {
                 this.getActionPeriod());
 
     }
-    public int getActionPeriod(){return actionPeriod; }
+    public int getActionPeriod(){return actionPeriod;}
     abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
 }
