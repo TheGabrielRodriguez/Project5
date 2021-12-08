@@ -7,7 +7,7 @@ public abstract class CreateEntity extends RobustEntity{
         super(id, position, images, animationPeriod, actionPeriod);
     }
 
-//    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
-//        super.scheduleActions(scheduler,world, imageStore);
-//    }
+    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
+        super.scheduleActions(scheduler,world, imageStore);
+    }
 }

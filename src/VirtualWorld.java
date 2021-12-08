@@ -98,6 +98,7 @@ public final class VirtualWorld extends PApplet
             String line = "charizard charizard_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + pressed.getY() + " 784 100";
             String[] properties = line.split("\\s");
             world.parseCharizard(properties, imageStore);
+//            scheduleActions(world, scheduler, imageStore);
             for (Entity entity : world.getEntities()) {
                 if (entity instanceof CreateEntity) {
                     ((CreateEntity) entity).scheduleActions(scheduler, world, imageStore);
@@ -105,7 +106,6 @@ public final class VirtualWorld extends PApplet
             }
         }
     }
-
 
     private Point mouseToPoint(int x, int y)
     {
