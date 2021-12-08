@@ -13,6 +13,7 @@ public final class WorldModel {  // make init vars private and then make getters
     private final Background background[][];
 
 
+
     private final Entity occupancy[][];
     private final Set<Entity> entities;
 
@@ -58,7 +59,7 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int BGND_COL = 2;
     private static final int BGND_ROW = 3;
 
-    private static final String FIRE_KEY = "fire";
+    private static final String FIRE_KEY = "flame";
     private static final int FIRE_NUM_PROPERTIES = 4;
     private static final int FIRE_ID = 1;
     private static final int FIRE_COL = 2;
