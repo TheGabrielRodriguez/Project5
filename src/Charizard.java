@@ -20,7 +20,7 @@ public class Charizard extends CreateEntity
             EventScheduler scheduler)
     {
         Optional<Entity> target =
-                findNearest(world, this.getPosition(), new ArrayList<>(List.of(PokeTree.class)));
+                findNearest(world, this.getPosition(), new ArrayList<>(Arrays.asList(PokeTree.class)));
 
         if (target.isEmpty() || !this.moveTo(world, target.get(), scheduler)) {
             scheduler.scheduleEvent(this,
