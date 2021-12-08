@@ -60,7 +60,8 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int BGND_ROW = 3;
 
     private static final String FIRE_KEY = "flame";
-    private static final int FIRE_NUM_PROPERTIES = 4;
+    private static final int FIRE_NUM_PROPERTIES = 5;
+    private static final int FIRE_ANIMATION_PERIOD = 4;
     private static final int FIRE_ID = 1;
     private static final int FIRE_COL = 2;
     private static final int FIRE_ROW = 3;
@@ -121,14 +122,14 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int TREE_ACTION_PERIOD = 5;
     private static final int TREE_HEALTH = 6;
 
-    private static final String POKETREE_KEY = "Tree";
-    private static final int POKETREE_NUM_PROPERTIES = 7;
-    private static final int POKETREE_ID = 1;
-    private static final int POKETREE_COL = 2;
-    private static final int POKETREE_ROW = 3;
-    private static final int POKETREE_ANIMATION_PERIOD = 4;
-    private static final int POKETREE_ACTION_PERIOD = 5;
-    private static final int POKETREE_HEALTH = 6;
+//    private static final String POKETREE_KEY = "Tree";
+//    private static final int POKETREE_NUM_PROPERTIES = 7;
+//    private static final int POKETREE_ID = 1;
+//    private static final int POKETREE_COL = 2;
+//    private static final int POKETREE_ROW = 3;
+//    private static final int POKETREE_ANIMATION_PERIOD = 4;
+//    private static final int POKETREE_ACTION_PERIOD = 5;
+//    private static final int POKETREE_HEALTH = 6;
 
 
 
@@ -295,12 +296,13 @@ public final class WorldModel {  // make init vars private and then make getters
         if (properties.length == FIRE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[FIRE_COL]),
                     Integer.parseInt(properties[FIRE_ROW]));
-            String id = properties[FIRE_ID];
-            this.setBackground(pt,
-                    new Background(id, imageStore.getImageList(id)));
+            Entity entity = Factory.createObstacle(properties[FIRE_ID], pt,
+                    Integer.parseInt(properties[FIRE_ANIMATION_PERIOD]),
+                    imageStore.getImageList(FIRE_KEY));
+            tryAddEntity(entity);
         }
 
-        return properties.length == FIRE_NUM_PROPERTIES;
+        return properties.length == OBSTACLE_NUM_PROPERTIES;
     }
 
     private boolean parseSapling(String[] properties, ImageStore imageStore) {
