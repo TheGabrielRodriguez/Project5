@@ -65,6 +65,12 @@ public final class WorldModel {  // make init vars private and then make getters
     private static final int FIRE_COL = 2;
     private static final int FIRE_ROW = 3;
 
+    private static final String FIRT_KEY = "flamedirt";
+    private static final int FIRT_NUM_PROPERTIES = 4;
+    private static final int FIRT_ID = 1;
+    private static final int FIRT_COL = 2;
+    private static final int FIRT_ROW = 3;
+
     private static final String OBSTACLE_KEY = "obstacle";
     private static final int OBSTACLE_NUM_PROPERTIES = 5;
     private static final int OBSTACLE_ID = 1;
@@ -293,6 +299,7 @@ public final class WorldModel {  // make init vars private and then make getters
 
         return properties.length == BGND_NUM_PROPERTIES;
     }
+
     public boolean parseFire(String[] properties, ImageStore imageStore) {
         if (properties.length == FIRE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[FIRE_COL]),
@@ -300,6 +307,18 @@ public final class WorldModel {  // make init vars private and then make getters
             String id = properties[FIRE_ID];
             this.setBackground(pt,
                     new Fire(id, imageStore.getImageList(FIRE_KEY)));
+        }
+
+        return properties.length == FIRE_NUM_PROPERTIES;
+    }
+
+    public boolean parseFirt(String[] properties, ImageStore imageStore) {
+        if (properties.length == FIRT_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[FIRT_COL]),
+                    Integer.parseInt(properties[FIRT_ROW]));
+            String id = properties[FIRT_ID];
+            this.setBackground(pt,
+                    new Firt(id, imageStore.getImageList(FIRT_KEY)));
         }
 
         return properties.length == FIRE_NUM_PROPERTIES;

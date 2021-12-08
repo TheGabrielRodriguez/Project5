@@ -85,6 +85,53 @@ public final class VirtualWorld extends PApplet
 
         Optional<Entity> entityOptional = world.getOccupant(pressed);
 
+        String tl = "bg bg_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() - 1) + " " + (pressed.getY() - 1);
+        String t = "bg bg_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + (pressed.getY() - 1);
+        String tr = "bg bg_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() + 1) + " " + (pressed.getY() - 1);
+        String l = "bg bg_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() - 1) + " " + pressed.getY();
+        String r = "bg bg_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() + 1) + " " + pressed.getY();
+        String bl = "bg bg_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() - 1) + " " + (pressed.getY() + 1);
+        String b = "bg bg_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + (pressed.getY() + 1);
+        String br = "bg bg_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() + 1) + " " + (pressed.getY() + 1);
+
+        if (entityOptional.isEmpty()) {
+            String line = "charizard charizard_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + pressed.getY() + " 784 100";
+            String[] properties = line.split("\\s");
+            world.parseCharizard(properties, imageStore, scheduler);
+
+            //top left
+            String[] tlp = tl.split("\\s");
+            world.parseFire(tlp, imageStore);
+
+            //top
+            String[] tp = t.split("\\s");
+            world.parseFire(tp, imageStore);
+
+            //top right
+            String[] trp = tr.split("\\s");
+            world.parseFire(trp, imageStore);
+
+            //left
+            String[] lp = l.split("\\s");
+            world.parseFire(lp, imageStore);
+
+            //right
+            String[] rp = r.split("\\s");
+            world.parseFire(rp, imageStore);
+
+            //bottom left
+            String[] blp = bl.split("\\s");
+            world.parseFire(blp, imageStore);
+
+            //bottom
+            String[] bp = b.split("\\s");
+            world.parseFire(bp, imageStore);
+
+            //bottom right
+            String[] brp = br.split("\\s");
+            world.parseFire(brp, imageStore);
+        }
+
         if (entityOptional.isPresent())
         {
             Entity entity = entityOptional.get();
@@ -102,7 +149,37 @@ public final class VirtualWorld extends PApplet
             }
 
             if (entity instanceof Charizard) {
-                System.out.println(entity.getId() + ": " + entity.getClass());
+                //top left
+                String[] tlp = tl.split("\\s");
+                world.parseFirt(tlp, imageStore);
+
+                //top
+                String[] tp = t.split("\\s");
+                world.parseFirt(tp, imageStore);
+
+                //top right
+                String[] trp = tr.split("\\s");
+                world.parseFirt(trp, imageStore);
+
+                //left
+                String[] lp = l.split("\\s");
+                world.parseFirt(lp, imageStore);
+
+                //right
+                String[] rp = r.split("\\s");
+                world.parseFirt(rp, imageStore);
+
+                //bottom left
+                String[] blp = bl.split("\\s");
+                world.parseFirt(blp, imageStore);
+
+                //bottom
+                String[] bp = b.split("\\s");
+                world.parseFirt(bp, imageStore);
+
+                //bottom right
+                String[] brp = br.split("\\s");
+                world.parseFirt(brp, imageStore);
             }
 
 
@@ -119,52 +196,6 @@ public final class VirtualWorld extends PApplet
                 String[] properties = line.split("\\s");
                 world.parseGyrados(properties, imageStore, scheduler);
             }
-        }
-
-        if (entityOptional.isEmpty()) {
-            String line = "charizard charizard_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + pressed.getY() + " 784 100";
-            String[] properties = line.split("\\s");
-            world.parseCharizard(properties, imageStore, scheduler);
-
-            //top left
-            String tl = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() - 1) + " " + (pressed.getY() - 1);
-            String[] tlp = tl.split("\\s");
-            world.parseFire(tlp, imageStore);
-
-            //top
-            String t = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + (pressed.getY() - 1);
-            String[] tp = t.split("\\s");
-            world.parseFire(tp, imageStore);
-
-            //top right
-            String tr = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() + 1) + " " + (pressed.getY() - 1);
-            String[] trp = tr.split("\\s");
-            world.parseFire(trp, imageStore);
-
-            //left
-            String l = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() - 1) + " " + pressed.getY();
-            String[] lp = l.split("\\s");
-            world.parseFire(lp, imageStore);
-
-            //right
-            String r = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() + 1) + " " + pressed.getY();
-            String[] rp = r.split("\\s");
-            world.parseFire(rp, imageStore);
-
-            //bottom left
-            String bl = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() - 1) + " " + (pressed.getY() + 1);
-            String[] blp = bl.split("\\s");
-            world.parseFire(blp, imageStore);
-
-            //bottom
-            String b = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + (pressed.getY() + 1);
-            String[] bp = b.split("\\s");
-            world.parseFire(bp, imageStore);
-
-            //bottom right
-            String br = "flame flame_" + pressed.getX() + "_" + pressed.getY() + " " + (pressed.getX() + 1) + " " + (pressed.getY() + 1);
-            String[] brp = br.split("\\s");
-            world.parseFire(brp, imageStore);
         }
     }
 
