@@ -108,6 +108,9 @@ public final class VirtualWorld extends PApplet
             String line = "charizard charizard_" + pressed.getX() + "_" + pressed.getY() + " " + pressed.getX() + " " + pressed.getY() + " 784 100";
             String[] properties = line.split("\\s");
             world.parseCharizard(properties, imageStore);
+            String lined = "fire fire" + (pressed.getX() +1)  + "_" + (pressed.getY()+1) + " " + (pressed.getX() - 1) + " " + (pressed.getY() - 1) + " 784 100";
+            String[] propertied = lined.split("\\s");
+            world.parseFire(propertied, imageStore);
             scheduleActions(world, scheduler, imageStore);
         }
 
