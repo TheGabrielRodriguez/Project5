@@ -43,21 +43,21 @@ charizard images/char2.bmp 252 254 252 0
 charizard images/char3.bmp 252 254 252 0
 charizard images/char4.bmp 252 254 252 0
 charizard images/char5.bmp 252 254 252 0
-Gyrados images/Gyrados1.png
-Gyrados images/Gyrados2.png
-Gyrados images/Gyrados3.png
-Gyrados images/Gyrados4.png
-Gyrados images/Gyrados5.png
-Gyrados images/Gyrados6.png
-Gyrados images/Gyrados7.png
-Gyrados images/Gyrados8.png
-Gyrados images/Gyrados9.png
-Gyrados images/Gyrados10.png
-Gyrados images/Gyrados11.png
-Gyrados images/Gyrados12.png
-Gyrados images/Gyrados13.png
-Gyrados images/Gyrados14.png
-Gyrados images/Gyrados15.png
+Gyrados images/Gyrados1.bmp 254 255 255 0
+Gyrados images/Gyrados2.bmp 254 255 255 0
+Gyrados images/Gyrados3.bmp 254 255 255 0
+Gyrados images/Gyrados4.bmp 254 255 255 0
+Gyrados images/Gyrados5.bmp 254 255 255 0
+Gyrados images/Gyrados6.bmp 254 255 255 0
+Gyrados images/Gyrados7.bmp 254 255 255 0
+Gyrados images/Gyrados8.bmp 254 255 255 0
+Gyrados images/Gyrados9.bmp 254 255 255 0
+Gyrados images/Gyrados10.bmp 254 255 255 0
+Gyrados images/Gyrados11.bmp 254 255 255 0
+Gyrados images/Gyrados12.bmp 254 255 255 0
+Gyrados images/Gyrados13.bmp 254 255 255 0
+Gyrados images/Gyrados14.bmp 254 255 255 0
+Gyrados images/Gyrados15.bmp 254 255 255 0
 mag images/mag1.png
 mag images/mag2.png
 mag images/mag3.png
@@ -72,5 +72,5 @@ Tree images/TreeP6.png
 Tree images/TreeP7.png
 Tree images/TreeP8.png
 Tree images/TreeP9.png
-flame images/flame.bmp 255 255 255 0
+fire images/flame.bmp 255 255 255 0
 flamedirt images/firt.bmp

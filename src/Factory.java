@@ -81,7 +81,7 @@ public class Factory {
             int resourceLimit,
             List<PImage> images)
     {
-        return new DudeNotFull(id, position, images, animationPeriod, actionPeriod,resourceLimit,
+        return new DudeNotFull(id, position, images, animationPeriod, actionPeriod, resourceLimit,
                 0);
     }
 
@@ -121,9 +121,20 @@ public class Factory {
     public static Entity createMagikarp(
             String id,
             Point position,
+            int actionPeriod,
             int animationPeriod,
             List<PImage> images) {
-        return new Magikarp(id, position, images, animationPeriod);
+        return new Magikarp(id, position, images, animationPeriod,
+                actionPeriod);
+    }
+    public static Entity createGyrados(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images) {
+        return new Gyrados(id, position, images, animationPeriod,
+                actionPeriod);
     }
 
 }
