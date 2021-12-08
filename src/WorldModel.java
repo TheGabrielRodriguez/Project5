@@ -401,6 +401,7 @@ public final class WorldModel {  // make init vars private and then make getters
         return properties.length == POKETREE_NUM_PROPERTIES;
     }
 
+
     private boolean parseObstacle(String[] properties, ImageStore imageStore)
     {
         if (properties.length == OBSTACLE_NUM_PROPERTIES) {
